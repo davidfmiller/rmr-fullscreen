@@ -20,7 +20,7 @@
       height: 100%;
     }
 
-    div.yui-fullscreen #request {display: none; }
+    div.yui-fullscreen #request { display: none; }
 
     div #exit { display: none; }
     div.yui-fullscreen #exit { display: block; }
@@ -52,20 +52,16 @@ YUI({
   }
 }).use('screen', 'node', 'base', 'event', function(Y) {
 
-  Y.on('domready', function(e) {
-
-    var r;
-    Y.one('#start').on('click', function(e){ 
-      r = new Y.Screen({ 'node': Y.one('#doc') });
-      r.on('fullscreen', function(e) { Y.log('fullscreen'); })
-      r.on('exit', function(e) { Y.log('exit'); })
-    });
-
-    Y.one('div#request input').on('click', function(e){ r.request(); });
-    Y.one('div#exit input').on('click', function(e){ r.exit(); });
-    Y.one('#end').on('click', function(e){ r.destroy(); });
-
+  var r;
+  Y.one('#start').on('click', function(e){ 
+    r = new Y.Screen({ 'node': Y.one('#doc') });
+    r.on('fullscreen', function(e) { Y.log('fullscreen'); })
+    r.on('exit', function(e) { Y.log('exit'); })
   });
+
+  Y.one('div#request input').on('click', function(e){ r.request(); });
+  Y.one('div#exit input').on('click', function(e){ r.exit(); });
+  Y.one('#end').on('click', function(e){ r.destroy(); });
 
 });
 </script>
