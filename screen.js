@@ -76,7 +76,7 @@ YUI.add('screen', function(Y) {
       var $ = this;
 
       this.set('listener', function(e) {
-        if (_bridge.isFullScreen()) {
+        if ($.isFullScreen()) {
           $.fire('fullscreen');
           Y.one(e.target).addClass('yui-fullscreen');
         } else {
@@ -89,7 +89,7 @@ YUI.add('screen', function(Y) {
     },
 
     isFullScreen : function() {
-      return _bridge.isFull();
+      return _bridge.isFullScreen();
     },
 
     /*
@@ -98,6 +98,15 @@ YUI.add('screen', function(Y) {
      */
     isSupported : function() {
       return _bridge.supported;
+    },
+
+    /*
+     *
+     *
+     */
+    toggle : function() {
+      this.isFullScreen() ? this.exit() : this.request();
+      return this;
     },
 
     /*
