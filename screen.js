@@ -14,10 +14,11 @@ YUI.add('screen', function(Y) {
     Screen.superclass.constructor.apply(this, arguments);
   };
 
+
   // 
   _bridge = {
     prefix : '',
-    supported : true,
+    supported : false,
     isFullScreen : function() { return false; },
     cancel : function() { },
     request : function() { },
@@ -67,6 +68,7 @@ YUI.add('screen', function(Y) {
      *
      */
     initializer : function(config) {
+
 
       if (! _bridge.supported) { return false; }
 
@@ -131,8 +133,10 @@ YUI.add('screen', function(Y) {
      *
      */
     destructor : function() {
-      this.get('node')._node.removeEventListener(_bridge.eventName, this.get('listener'));
-      this.set('node', null);
+      if (this.get('node')) {
+        this.get('node')._node.removeEventListener(_bridge.eventName, this.get('listener'));
+        this.set('node', null);
+      }
     },
 
     NAME : 'screen',
