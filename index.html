@@ -40,6 +40,7 @@
   </div>
 </div>
 
+<input type="button" value="start" id="start">
 <input type="button" value="end" id="end">
 
 <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
@@ -53,14 +54,12 @@ YUI({
 
   Y.on('domready', function(e) {
 
-    var r = new Y.Screen({ 'node': Y.one('#doc') });
-
-    if (r.isSupported()) {
-      Y.log('supported');
-    }
-    
-    r.on('fullscreen', function(e) { Y.log('fullscreen'); })
-    r.on('exit', function(e) { Y.log('exit'); })
+    var r;
+    Y.one('#start').on('click', function(e){ 
+      r = new Y.Screen({ 'node': Y.one('#doc') });
+      r.on('fullscreen', function(e) { Y.log('fullscreen'); })
+      r.on('exit', function(e) { Y.log('exit'); })
+    });
 
     Y.one('div#request input').on('click', function(e){ r.request(); });
     Y.one('div#exit input').on('click', function(e){ r.exit(); });

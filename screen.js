@@ -1,15 +1,64 @@
-/*jslint browser:true, indent:2,white:true,nomen:false,plusplus:false */
+/*jslint browser:true,indent:2,white:true,nomen:false,plusplus:true,nomen:true */
 /*global YUI, window */
+
+// Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
+
 
 YUI.add('screen', function(Y) {
 
-  "use strict";
+  'use strict';
 
-  var Screen = function() {
+  var Screen, _bridge, i, prefix, extensions = ['webkit','moz','o','ms','khtml'];
+
+  Screen = function() {
     Screen.superclass.constructor.apply(this, arguments);
   };
 
+  // 
+  _bridge = {
+    prefix : '',
+    supported : true,
+    isFullScreen : function() { return false; },
+    cancel : function() { },
+    request : function() { },
+    eventName : null
+  };
 
+  // check for native support
+  if (typeof document.cancelFullScreen != 'undefined') {
+    _bridge.supported = true;
+  } else {
+    // check for fullscreen support by vendor prefix
+    for (i = 0; i < extensions.length; i++ ) {
+
+      prefix = extensions[i];
+      if (typeof document[prefix + 'CancelFullScreen' ] != 'undefined') {
+        _bridge.supported = true;
+        _bridge.prefix = prefix;
+        break;
+      }
+    }
+  }
+
+  if (_bridge.supported) {
+    _bridge.eventName = _bridge.prefix + 'fullscreenchange';
+    _bridge.request = function(node) { return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen'](); };
+    _bridge.cancel = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
+    _bridge.isFullScreen = function() {
+      switch (prefix) {
+        case 'webkit':
+          return document.webkitIsFullScreen;
+        default:
+          if (document.hasOwnProperty('fullScreen')) {
+            return document.fullScreen;
+          } else if (document.hasOwnProperty('fullscreen')) {
+            return document.fullscreen;
+          }
+
+          return document[prefix + 'FullScreen'];
+      }
+    };
+  }
 
   Y.Screen = Y.extend(Screen, Y.Base, {
 
@@ -19,14 +68,13 @@ YUI.add('screen', function(Y) {
      */
     initializer : function(config) {
 
+      if (! _bridge.supported) { return false; }
+
       this.set('node', config.node);
-
-      if (! this.get('node')) { Y.log('none'); return false; }
-
       var $ = this;
 
       this.set('listener', function(e) {
-        if (document.webkitIsFullScreen) {
+        if (_bridge.isFullScreen()) {
           $.fire('fullscreen');
           Y.one(e.target).addClass('yui-fullscreen');
         } else {
@@ -35,9 +83,11 @@ YUI.add('screen', function(Y) {
         }
       });
 
-      this.get('node')._node.addEventListener('webkitfullscreenchange', this.get('listener'));
+      this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+    },
 
-      return this;
+    isFullScreen : function() {
+      return _bridge.isFull();
     },
 
     /*
@@ -45,7 +95,7 @@ YUI.add('screen', function(Y) {
      * @return boolean
      */
     isSupported : function() {
-      return true;
+      return _bridge.supported;
     },
 
     /*
@@ -55,7 +105,7 @@ YUI.add('screen', function(Y) {
     request : function() {
       var n = this.get('node'); 
       if (! n) { return false; }
-      n._node.webkitRequestFullScreen();
+      _bridge.request(n);
 
       return this;
     },
@@ -64,7 +114,7 @@ YUI.add('screen', function(Y) {
      * Exit fullscren mode
      */
     exit : function() {
-      document.webkitCancelFullScreen();
+      _bridge.cancel();
       return this;
     },
 
@@ -81,7 +131,7 @@ YUI.add('screen', function(Y) {
      *
      */
     destructor : function() {
-      this.get('node')._node.removeEventListener('webkitfullscreenchange', this.get('listener'));
+      this.get('node')._node.removeEventListener(_bridge.eventName, this.get('listener'));
       this.set('node', null);
     },
 
@@ -95,8 +145,7 @@ YUI.add('screen', function(Y) {
         },
         writeOnce : true
       },
-      'listener' : { },
-      'destroyed' : { }
+      'listener' : { }
     }
   });
 
