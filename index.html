@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Screen</title>
+  <style>
+
+    body {
+      background: red;
+    }
+
+    #doc {
+      background: green;
+      color: #fff;
+    }
+
+    #doc.yui-fullscreen {
+      background: blue;
+      width: 100%;
+      height: 100%;
+    }
+
+    div.yui-fullscreen #request {display: none; }
+
+    div #exit { display: none; }
+    div.yui-fullscreen #exit { display: block; }
+
+
+  </style>
+</head>
+<body>
+
+<div id="doc">
+  stuff goes here
+  <div id="request">
+    <input type="button" value="request">
+  </div>
+  <div id="exit">
+    <input type="button" value="exit">
+  </div>
+</div>
+
+<input type="button" value="end" id="end">
+
+<script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
+<script>
+
+YUI({
+  'modules' : {
+    'screen' : { fullpath : 'screen.js' }
+  }
+}).use('screen', 'node', 'base', 'event', function(Y) {
+
+  Y.on('domready', function(e) {
+
+    var r = new Y.Screen({ 'node': Y.one('#doc') });
+
+    if (r.isSupported()) {
+      Y.log('supported');
+    }
+    
+    r.on('fullscreen', function(e) { Y.log('fullscreen'); })
+    r.on('exit', function(e) { Y.log('exit'); })
+
+    Y.one('div#request input').on('click', function(e){ r.request(); });
+    Y.one('div#exit input').on('click', function(e){ r.exit(); });
+    Y.one('#end').on('click', function(e){ r.destroy(); });
+
+  });
+
+});
+</script>
+</body>
+</html>
