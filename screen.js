@@ -125,7 +125,7 @@ YUI.add('screen', function(Y) {
     /*
      * Attempt to enter fullscreen mode
      *
-     * @event fullscreen if successful
+     * @event 'fullscreen' if successful
      * @return this
      */
     request : function() {
@@ -138,6 +138,7 @@ YUI.add('screen', function(Y) {
 
     /*
      * Exit fullscreen mode
+     * @event 'exit' if successful 
      * @return this
      */
     exit : function() {
@@ -154,8 +155,7 @@ YUI.add('screen', function(Y) {
     },
 
     /*
-     *
-     *
+     * Clean up
      */
     destructor : function() {
       if (this.get('node')) {
