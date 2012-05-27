@@ -13,7 +13,8 @@ YUI.add('screen', function(Y) {
 
   'use strict';
 
-  var Screen, _bridge, i, prefix, extensions = ['webkit','moz','o','ms','khtml'];
+  var Screen, _bridge, i, prefix, extensions = ['webkit','moz','o','ms','khtml'],
+      CLASSNAME = 'rmr-full-screen';
 
   Screen = function() {
     Screen.superclass.constructor.apply(this, arguments);
@@ -84,10 +85,10 @@ YUI.add('screen', function(Y) {
       this.set('listener', function(e) {
         if ($.isFullScreen()) {
           $.fire('fullscreen');
-          Y.one(e.target).addClass('yui-fullscreen');
+          Y.one(e.target).addClass(CLASSNAME);
         } else {
           $.fire('exit');
-          $.get('node').removeClass('yui-fullscreen');
+          $.get('node').removeClass(CLASSNAME);
         }
       });
 
