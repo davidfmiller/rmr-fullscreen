@@ -1,7 +1,12 @@
 /*jslint browser:true,indent:2,white:true,nomen:false,plusplus:true,nomen:true */
 /*global YUI, window */
 
-// Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
+/*
+  A module that bridges the gap between browsers' various implementations of zooming elements to full-screen.
+  https://developer.mozilla.org/en/DOM/Using_full-screen_mode
+
+  Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
+*/
 
 
 YUI.add('screen', function(Y) {
@@ -20,7 +25,7 @@ YUI.add('screen', function(Y) {
     prefix : '',
     supported : false,
     isFullScreen : function() { return false; },
-    cancel : function() { },
+    exit : function() { },
     request : function() { },
     eventName : null
   };
@@ -44,7 +49,7 @@ YUI.add('screen', function(Y) {
   if (_bridge.supported) {
     _bridge.eventName = _bridge.prefix + 'fullscreenchange';
     _bridge.request = function(node) { return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen'](); };
-    _bridge.cancel = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
+    _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
     _bridge.isFullScreen = function() {
       switch (prefix) {
         case 'webkit':
@@ -65,7 +70,8 @@ YUI.add('screen', function(Y) {
 
     /*
      *
-     *
+     * @param config (object) - the following keys: 
+     *  'node' - a selector for which element this object will 
      */
     initializer : function(config) {
 
@@ -88,11 +94,16 @@ YUI.add('screen', function(Y) {
       this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
     },
 
+    /*
+     *
+     * @return boolean
+     */
     isFullScreen : function() {
       return _bridge.isFullScreen();
     },
 
     /*
+     * Determine whether or not the browser supports full-screen elements
      *
      * @return boolean
      */
@@ -101,17 +112,21 @@ YUI.add('screen', function(Y) {
     },
 
     /*
+     * A convenience method to switch between request() and exit() based on the current state
      *
-     *
+     * @see request
+     * @see exit
+     * @return this
      */
     toggle : function() {
-      this.isFullScreen() ? this.exit() : this.request();
-      return this;
+      return this.isFullScreen() ? this.exit() : this.request();
     },
 
     /*
+     * Attempt to enter fullscreen mode
      *
-     *
+     * @event fullscreen if successful
+     * @return this
      */
     request : function() {
       var n = this.get('node'); 
@@ -122,10 +137,11 @@ YUI.add('screen', function(Y) {
     },
 
     /*
-     * Exit fullscren mode
+     * Exit fullscreen mode
+     * @return this
      */
     exit : function() {
-      _bridge.cancel();
+      _bridge.exit();
       return this;
     },
 
