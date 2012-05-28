@@ -4,11 +4,9 @@
   <meta charset="utf-8">
   <title>Screen</title>
   <style>
-
     body {
-      background: red;
+      margin: 0; padding: 0;
     }
-
     #doc {
       background: green;
       color: #fff;
@@ -20,10 +18,38 @@
       height: 100%;
     }
 
-    div.rmr-full-screen #request { display: none; }
+    #doc.rmr-full-screen .exit { display: block; }
+    #doc.rmr-full-screen .start,
+    #doc.request.rmr-full-screen .request,
+    #doc.request.rmr-full-screen .end { display: none; }
 
-    div #exit { display: none; }
-    div.rmr-full-screen #exit { display: block; }
+    #doc.unsupported { background: black; }
+
+    #doc div {
+      display: none;
+    }
+
+    #doc .start {
+      display: block;
+    }
+
+    #doc.request .start {
+      display: none;
+    }
+
+    #doc.request .request,
+    #doc.request .end {
+      display: block;
+    }
+
+    #doc.start .start {
+      display: none;
+    }
+
+    #doc.start .end,
+    #doc.start .request {
+      display: block;
+    }
 
 
   </style>
@@ -32,16 +58,20 @@
 
 <div id="doc">
   stuff goes here
-  <div id="request">
+  <div class="start">
+    <input type="button" value="start">
+  </div>
+  <div class="request">
     <input type="button" value="request">
   </div>
-  <div id="exit">
+  <div class="exit">
     <input type="button" value="exit">
   </div>
-</div>
+  <div class="end">
+    <input type="button" value="end" id="end">
+  </div>
 
-<input type="button" value="start" id="start">
-<input type="button" value="end" id="end">
+</div>
 
 <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
 <script>
@@ -52,17 +82,37 @@ YUI({
   }
 }).use('screen', 'node', 'base', 'event', function(Y) {
 
-  var r;
-  Y.one('#start').on('click', function(e){ 
+  var r, doc = Y.one('#doc');
+
+  Y.one('div.start input').on('click', function(e){ 
     r = new Y.Screen({ 'node': Y.one('#doc') });
-    r.on('fullscreen', function(e) { Y.log('fullscreen'); })
+    r.on('fullscreen', function(e) {
+      Y.log('fullscreen');
+      doc.removeClass('start');
+    })
     r.on('exit', function(e) { Y.log('exit'); })
+
+    doc.addClass('start');
   });
 
-  Y.one('div#request input').on('click', function(e){ r.request(); });
-  Y.one('div#exit input').on('click', function(e){ r.exit(); });
-  Y.one('#end').on('click', function(e){ r.destroy(); });
+  Y.one('div.request input').on('click', function(e){
+    if (r.isSupported()) {
+      doc.addClass('request');
+      r.request();
+    } else {
+      doc.addClass('unsupported');
+    }
 
+  });
+
+  Y.one('div.exit input').on('click', function(e){
+    r.exit();
+  });
+
+  Y.one('div.end input').on('click', function(e){
+    r.destroy();
+    doc.removeClass('start').removeClass('request');
+  });
 });
 </script>
 </body>
