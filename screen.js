@@ -43,6 +43,7 @@ YUI.add('screen', function(Y) {
   }
 
   if (_bridge.supported) {
+    Y.one('body').addClass('rmr-screenable');
     _bridge.eventName = _bridge.prefix + 'fullscreenchange';
     _bridge.request = function(node) { return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen'](); };
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
