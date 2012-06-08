@@ -6,7 +6,10 @@
   <style>
     body {
       margin: 0; padding: 0;
+      width: 100%;
+      height: 100%;
     }
+
     #doc {
       background: green;
       color: #fff;
@@ -85,7 +88,7 @@ YUI({
   var r, doc = Y.one('#doc');
 
   Y.one('div.start input').on('click', function(e){ 
-    r = new Y.Screen({ 'node': Y.one('#doc') });
+    r = new Y.Screen({'node' : doc});
     r.on('fullscreen', function(e) {
       Y.log('fullscreen');
       doc.removeClass('start');

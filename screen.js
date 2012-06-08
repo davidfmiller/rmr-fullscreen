@@ -16,11 +16,6 @@ YUI.add('screen', function(Y) {
   var Screen, _bridge, i, prefix, extensions = ['webkit','moz','o','ms','khtml'],
       CLASSNAME = 'rmr-full-screen';
 
-  Screen = function() {
-    Screen.superclass.constructor.apply(this, arguments);
-  };
-
-
   // 
   _bridge = {
     prefix : '',
@@ -67,33 +62,42 @@ YUI.add('screen', function(Y) {
     };
   }
 
-  Y.Screen = Y.extend(Screen, Y.Base, {
+  Screen = function(config) {
+    Screen.superclass.constructor.apply(this, arguments);
+    if (! _bridge.supported) { return false; }
 
-    /*
-     *
-     * @param config (object) - the following keys: 
-     *  'node' - a selector for which element this object will 
-     */
-    initializer : function(config) {
+    this.set('node', config.hasOwnProperty('node') ? config.node : document.body);
+    var $ = this;
 
+    if (! this.get('node')) { return null; }
 
-      if (! _bridge.supported) { return false; }
+    this.set('listener', function(e) {
+      if ($.isFullScreen()) {
+        $.fire('fullscreen');
+        Y.one(e.target).addClass(CLASSNAME);
+      } else {
+        $.fire('exit');
+        $.get('node').removeClass(CLASSNAME);
+      }
+    });
 
-      this.set('node', config.node);
-      var $ = this;
+    this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+  };
 
-      this.set('listener', function(e) {
-        if ($.isFullScreen()) {
-          $.fire('fullscreen');
-          Y.one(e.target).addClass(CLASSNAME);
-        } else {
-          $.fire('exit');
-          $.get('node').removeClass(CLASSNAME);
-        }
-      });
-
-      this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+  Screen.ATTRS = {
+    'node' : {
+      setter : function(node) {
+        var n = Y.one(node);
+        if (! n) { return null; }
+        return n;
+      },
+      writeOnce : true
     },
+    'listener' : { }
+  };
+
+
+  Y.Screen = Y.extend(Screen, Y.Base, {
 
     /*
      *
@@ -165,18 +169,7 @@ YUI.add('screen', function(Y) {
       }
     },
 
-    NAME : 'screen',
-    ATTRS : {
-      'node' : {
-        setter : function(node) {
-          var n = Y.one(node);
-          if (! n) { Y.fail('Screen: Invalid node' + node); }
-          return n;
-        },
-        writeOnce : true
-      },
-      'listener' : { }
-    }
+    NAME : 'screen'
   });
 
 }, '3.3.1', { requires : ['node', 'event', 'base']});
