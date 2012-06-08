@@ -14,7 +14,7 @@ YUI.add('screen', function(Y) {
   'use strict';
 
   var Screen, _bridge, i, prefix, extensions = ['webkit','moz','o','ms','khtml'],
-      CLASSNAME = 'rmr-full-screen';
+      CLASSNAME = 'rmr-screen';
 
   // 
   _bridge = {
