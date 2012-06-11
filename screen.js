@@ -1,4 +1,4 @@
-/*jslint browser:true,indent:2,white:true,nomen:false,plusplus:true,nomen:true */
+/*jslint browser:true,indent:2,white:true,nomen:false,plusplus:true,nomen:true,eqeq:true */
 /*global YUI, window */
 
 /*
@@ -7,7 +7,6 @@
 
   Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
 */
-
 
 YUI.add('screen', function(Y) {
 
@@ -48,18 +47,22 @@ YUI.add('screen', function(Y) {
     _bridge.request = function(node) { return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen'](); };
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
     _bridge.isFullScreen = function() {
+      var r = null;
       switch (prefix) {
         case 'webkit':
-          return document.webkitIsFullScreen;
+          r = document.webkitIsFullScreen;
+          break;
         default:
           if (document.hasOwnProperty('fullScreen')) {
-            return document.fullScreen;
+            r = document.fullScreen;
           } else if (document.hasOwnProperty('fullscreen')) {
-            return document.fullscreen;
+            r = document.fullscreen;
           }
 
-          return document[prefix + 'FullScreen'];
+          r = document[prefix + 'FullScreen'];
       }
+
+      return r;
     };
   }
 
