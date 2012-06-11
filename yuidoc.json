@@ -1,0 +1,11 @@
+{
+    "name": "backdrop",
+    "description": "backdrop",
+    "version": "0.1",
+    "url": "https://github.com/davidfmiller/backdrop",
+    "options": {
+        "linkNatives": "true",
+        "outdir": "./docs",
+        "paths": "."
+    }
+}
