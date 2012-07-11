@@ -1,8 +1,8 @@
 {
-    "name": "backdrop",
-    "description": "backdrop",
+    "name": "screen",
+    "description": "screen",
     "version": "0.1",
-    "url": "https://github.com/davidfmiller/backdrop",
+    "url": "https://github.com/davidfmiller/screen",
     "options": {
         "linkNatives": "true",
         "outdir": "./docs",
