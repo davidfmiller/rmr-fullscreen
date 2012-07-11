@@ -3,8 +3,7 @@
 
 
 /*
- *
- * A module that bridges the gap between browsers' various implementations of zooming elements to full-screen.
+ * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
  * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
  *
  * Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
@@ -175,7 +174,6 @@ YUI.add('screen', function(Y) {
      */
     request : function() {
       var n = this.get('node'); 
-      if (! n) { return false; }
       _bridge.request(n);
 
       return this;
