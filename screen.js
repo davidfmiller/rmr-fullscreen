@@ -11,7 +11,7 @@
  */
 
 /**
- * @module screen
+ @module screen
  */
 YUI.add('screen', function(Y) {
 
@@ -74,10 +74,10 @@ YUI.add('screen', function(Y) {
   }
 
   /**
-   * @class Screen
-   * @constructor
-   * @extends Y.Base
-   * @param config {object}
+   @class Screen
+   @constructor
+   @extends Y.Base
+   @param config {object}
    */
   Screen = function(config) {
     Screen.superclass.constructor.apply(this, arguments);
@@ -91,18 +91,18 @@ YUI.add('screen', function(Y) {
     this.set('listener', function(e) {
 
       /**
-       * Fired when the node gains full-screen control
-       *
-       * @event fullscreen
+       Fired when the node gains full-screen control
+
+       @event fullscreen
        */
       if ($.isFullScreen()) {
         $.fire('fullscreen');
         Y.one(e.target).addClass(CLASSNAME);
 
       /**
-       * Fired when the node loses full-screen control
-       *
-       * @event exit
+       Fired when the node loses full-screen control
+
+       @event exit
        */
       } else {
         $.fire('exit');
@@ -114,6 +114,13 @@ YUI.add('screen', function(Y) {
   };
 
   Screen.ATTRS = {
+
+    /**
+     Reference to the Node that this object is bound to
+
+     @property node
+     @type {Node}
+     */
     'node' : {
       setter : function(node) {
         return Y.one(node);
@@ -129,42 +136,42 @@ YUI.add('screen', function(Y) {
   Y.Screen = Y.extend(Screen, Y.Base, {
 
     /**
-     * Determines if the browser is currently in full-screen mode
-     *
-     * @method isFullScreen
-     * @return {boolean}
+     Determines if the browser is currently in full-screen mode
+
+     @method isFullScreen
+     @return {boolean}
      */
     isFullScreen : function() {
       return _bridge.isFullScreen();
     },
 
     /**
-     * Determine whether or not the browser supports full-screen elements
-     *
-     * @method isSupported
-     * @return {boolean}
+     Determine whether or not the browser supports full-screen elements
+
+     @method isSupported
+     @return {boolean}
      */
     isSupported : function() {
       return _bridge.supported;
     },
 
     /**
-     * A convenience method to switch between request() and exit() based on the current state
-     *
-     * @method toggle
-     * @chainable
-     * @see request
-     * @see exit
+     A convenience method to switch between request() and exit() based on the current state
+
+     @method toggle
+     @chainable
+     @see request
+     @see exit
      */
     toggle : function() {
       return this.isFullScreen() ? this.exit() : this.request();
     },
 
     /**
-     * Attempt to enter fullscreen mode
-     *
-     * @method request
-     * @chainable
+     Attempt to enter fullscreen mode
+
+     @method request
+     @chainable
      */
     request : function() {
       var n = this.get('node'); 
@@ -175,10 +182,10 @@ YUI.add('screen', function(Y) {
     },
 
     /**
-     * Exit fullscreen mode
-     *
-     * @method exit
-     * @chainable
+     Exit fullscreen mode
+
+     @method exit
+     @chainable
      */
     exit : function() {
       _bridge.exit();
@@ -186,17 +193,17 @@ YUI.add('screen', function(Y) {
     },
 
     /**
-     * Returns a string representation of the object
-     *
-     * @method toString
-     * @return {String}
+     Returns a string representation of the object
+
+     @method toString
+     @return {String}
      */
     toString : function() {
       return 'Screen <' + this.get('node') + '>';
     },
 
     /*
-     * Clean up
+     Clean up
      */
     destructor : function() {
       if (this.get('node')) {
