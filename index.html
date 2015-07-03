@@ -86,23 +86,23 @@ YUI({
   }
 }).use('screen', 'node', 'base', 'event', function(Y) {
 
-  var r, doc = Y.one('#doc');
+  var screen, doc = Y.one('#doc');
 
-  Y.one('div.start input').on('click', function(e){ 
-    r = new Y.Screen({'node' : doc});
-    r.on('fullscreen', function(e) {
+  Y.one('div.start input').on('click', function(e){
+    screen = new Y.Screen({'node' : doc});
+    screen.on('fullscreen', function(e) {
       Y.log('fullscreen');
       doc.removeClass('start');
     })
-    r.on('exit', function(e) { Y.log('exit'); })
+    screen.on('exit', function(e) { Y.log('exit'); })
 
     doc.addClass('start');
   });
 
   Y.one('div.request input').on('click', function(e){
-    if (r.isSupported()) {
+    if (screen.isSupported()) {
       doc.addClass('request');
-      r.request();
+      screen.request();
     } else {
       doc.addClass('unsupported');
     }
@@ -110,11 +110,11 @@ YUI({
   });
 
   Y.one('div.exit input').on('click', function(e){
-    r.exit();
+    screen.exit();
   });
 
   Y.one('div.end input').on('click', function(e){
-    r.destroy();
+    screen.destroy();
     doc.removeClass('start').removeClass('request');
   });
 });

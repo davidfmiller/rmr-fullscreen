@@ -32,6 +32,7 @@ YUI.add('screen', function(Y) {
     eventName : null
   };
 
+
   if (typeof document.cancelFullScreen != 'undefined') { // check for native support
     _bridge.supported = true;
   } else {
@@ -49,14 +50,22 @@ YUI.add('screen', function(Y) {
 
   if (_bridge.supported) {
     Y.one('body').addClass('rmr-screenable');
+
     _bridge.eventName = _bridge.prefix + 'fullscreenchange';
-    _bridge.request = function(node) { return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen'](); };
+
+    _bridge.request = function(node) {
+      return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen']();
+    };
+
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
     _bridge.isFullScreen = function() {
       var r = null;
       switch (prefix) {
         case 'webkit':
           r = document.webkitIsFullScreen;
+          break;
+        case 'moz':
+          r = document.mozFullScreenElement;
           break;
         default:
           if (document.hasOwnProperty('fullScreen')) {
@@ -96,7 +105,7 @@ YUI.add('screen', function(Y) {
        */
       if ($.isFullScreen()) {
         $.fire('fullscreen');
-        Y.one(e.target).addClass(CLASSNAME);
+        $.get('node').addClass(CLASSNAME);
 
       /**
        Fired when the node loses full-screen control
@@ -109,7 +118,13 @@ YUI.add('screen', function(Y) {
       }
     });
 
-    this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+    if (_bridge.prefix == 'moz') {
+
+      document.addEventListener('mozfullscreenchange', this.get('listener'));
+
+    } else {
+      this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+    }
   };
 
   Screen.ATTRS = {
@@ -173,7 +188,7 @@ YUI.add('screen', function(Y) {
      @chainable
      */
     request : function() {
-      var n = this.get('node'); 
+      var n = this.get('node');
       _bridge.request(n);
 
       return this;
