@@ -70,6 +70,31 @@
       display: none;
     }
 
+    footer {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      background:rgba(0,0,0,0.05);
+      border-top-left-radius: 5px;
+      transition: background 0.1s;
+    }
+
+    footer:hover {
+      background:rgba(0,0,0,0.1);
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #444;
+      display: inline-block;
+      padding: 10px;
+    }
+
+    footer span {
+      color: #000;
+      text-decoration: underline;
+    }
+
   </style>
 </head>
 <body>
@@ -77,7 +102,7 @@
 <div id="doc">
 
   <div class="request">
-    <i class="fa fa-external-link" title="Enter full-screen"></i>
+    <i class="fa fa-external-link-square" title="Enter full-screen"></i>
   </div>
   <div class="exit">
     <i class="fa fa-close" title="Exit full-screen"></i>
@@ -85,6 +110,10 @@
   <div class="no-screen">
     <p><i class="fa fa-ban"></i> Sorry, your browser doesn't support full-screen.</p>
   </div>
+
+  <footer>
+    <a href="https://github.com/davidfmiller/screen" title="screen">Built with <span>screen</span></a>.
+  </footer>
 
 </div>
 
@@ -121,7 +150,6 @@ YUI({
     });
 
   } else {
-
     doc.addClass('unsupported');
   }
 
