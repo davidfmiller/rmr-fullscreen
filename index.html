@@ -23,14 +23,18 @@
     }
 
     #doc.rmr-screen .exit { display: block; }
+
     #doc.rmr-screen .start,
-    #doc.request.rmr-screen .request,
     #doc.request.rmr-screen .end { display: none; }
 
     #doc.unsupported { background: black; }
 
+    #doc.unsupported .no-screen { display: block; }
+
     #doc div {
       display: none;
+      padding: 50px;
+      margin: 0 auto;
     }
 
     #doc .start {
@@ -61,18 +65,15 @@
 <body>
 
 <div id="doc">
-  stuff goes here
-  <div class="start">
-    <input type="button" value="start">
-  </div>
+
   <div class="request">
-    <input type="button" value="request">
+    <input type="button" value="Request">
   </div>
   <div class="exit">
-    <input type="button" value="exit">
+    <input type="button" value="Exit">
   </div>
-  <div class="end">
-    <input type="button" value="end" id="end">
+  <div class="no-screen">
+    <p>Sorry, your browser doesn't support full-screen.</p>
   </div>
 
 </div>
@@ -86,37 +87,36 @@ YUI({
   }
 }).use('screen', 'node', 'base', 'event', function(Y) {
 
-  var screen, doc = Y.one('#doc');
+  var doc = Y.one('#doc'),
+      screen = new Y.Screen({'node' : doc});
 
-  Y.one('div.start input').on('click', function(e){
-    screen = new Y.Screen({'node' : doc});
+  if (screen.isSupported()) {
+
+    doc.addClass('request');
+
     screen.on('fullscreen', function(e) {
       Y.log('fullscreen');
-      doc.removeClass('start');
+      doc.removeClass('request');
     })
-    screen.on('exit', function(e) { Y.log('exit'); })
+    screen.on('exit', function(e) { Y.log('exit'); doc.addClass('start'); })
 
-    doc.addClass('start');
-  });
+    Y.one('div.request input').on('click', function(e){
 
-  Y.one('div.request input').on('click', function(e){
-    if (screen.isSupported()) {
       doc.addClass('request');
       screen.request();
-    } else {
-      doc.addClass('unsupported');
-    }
+    });
 
-  });
+    Y.one('div.exit input').on('click', function(e){
+      screen.exit();
+    });
 
-  Y.one('div.exit input').on('click', function(e){
-    screen.exit();
-  });
 
-  Y.one('div.end input').on('click', function(e){
-    screen.destroy();
-    doc.removeClass('start').removeClass('request');
-  });
+  } else {
+
+    doc.addClass('unsupported');
+  }
+
+
 });
 </script>
 </body>
