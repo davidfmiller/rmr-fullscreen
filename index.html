@@ -136,8 +136,8 @@ YUI({
     screen.on('fullscreen', function(e) {
       Y.log('fullscreen');
       doc.removeClass('request');
-    })
-    screen.on('exit', function(e) { Y.log('exit'); doc.addClass('request'); })
+    });
+    screen.on('exit', function(e) { Y.log('exit'); doc.addClass('request'); });
 
     Y.one('div.request i').on('click', function(e){
 

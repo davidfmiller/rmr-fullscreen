@@ -49,7 +49,6 @@ YUI.add('screen', function(Y) {
   }
 
   if (_bridge.supported) {
-    Y.one('body').addClass('rmr-screenable');
 
     _bridge.eventName = _bridge.prefix + 'fullscreenchange';
 
