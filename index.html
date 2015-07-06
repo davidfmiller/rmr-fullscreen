@@ -37,7 +37,6 @@
       background: #ddd;
     }
 
-
     #doc.rmr-screen .exit i.fa:hover {
       color: red;
     }
@@ -50,24 +49,32 @@
       font-size: 12px;
     }
 
-    #doc.unsupported .no-screen {
+    .request {
+      display: block;
+    }
+
+    #doc.unsupported div { display: none; }
+    #doc.unsupported div.no-screen {
       display: block;
       color: red;
     }
 
     #doc div {
-      display: none;
       padding: 50px;
       text-align: center;
+      display: none;
     }
 
-    #doc.request .request,
-    #doc.request .end {
+    #doc .request {
       display: block;
     }
 
-    #doc.start .start {
+    #doc.rmr-screen div.request {
       display: none;
+    }
+
+    #doc.rmr-screen div.exit {
+      display: block;
     }
 
     footer {
@@ -131,17 +138,12 @@ YUI({
 
   if (screen.isSupported()) {
 
-    doc.addClass('request');
-
     screen.on('fullscreen', function(e) {
       Y.log('fullscreen');
-      doc.removeClass('request');
-    });
-    screen.on('exit', function(e) { Y.log('exit'); doc.addClass('request'); });
+    })
+    screen.on('exit', function(e) { Y.log('exit'); })
 
     Y.one('div.request i').on('click', function(e){
-
-      doc.addClass('request');
       screen.request();
     });
 
