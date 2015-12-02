@@ -124,38 +124,31 @@
 
 </div>
 
+<script src="screen-native.js"></script>
+
 <script src="http://yui.yahooapis.com/3.5.1/build/yui/yui-min.js"></script>
 <script>
 
-YUI({
-  'modules' : {
-    'screen' : { fullpath : 'screen.js' }
-  }
-}).use('screen', 'node', 'base', 'event', function(Y) {
+var s = new Screen('#doc');
+if (s.isSupported()) {
 
-  var doc = Y.one('#doc'),
-      screen = new Y.Screen({'node' : doc});
+  s.on('fullscreen', function(e) {
+    window.console.log('fullscreen!!');
+  })
+  s.on('exit', function(e) { window.console.log('exit!!'); })
 
-  if (screen.isSupported()) {
 
-    screen.on('fullscreen', function(e) {
-      Y.log('fullscreen');
-    })
-    screen.on('exit', function(e) { Y.log('exit'); })
+  document.querySelector('div.request i').addEventListener('click', function(e){
+    s.request();
+  });
 
-    Y.one('div.request i').on('click', function(e){
-      screen.request();
-    });
+  document.querySelector('div.exit i').addEventListener('click', function(e){
+    s.exit();
+  });
 
-    Y.one('div.exit i').on('click', function(e){
-      screen.exit();
-    });
-
-  } else {
-    doc.addClass('unsupported');
-  }
-
-});
+} else {
+  document.querySelector('#doc').classList.add('unsupported');
+}
 </script>
 </body>
 </html>

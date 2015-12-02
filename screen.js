@@ -118,9 +118,7 @@ YUI.add('screen', function(Y) {
     });
 
     if (_bridge.prefix == 'moz') {
-
       document.addEventListener('mozfullscreenchange', this.get('listener'));
-
     } else {
       this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
     }
