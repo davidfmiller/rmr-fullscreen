@@ -1,5 +1,5 @@
 /* jshint undef: true,strict:true,trailing:true */
-/* global YUI,document,window,Image */
+/* global document,window,Image */
 
 
 /*
@@ -12,31 +12,28 @@
 /**
  @module screen
  */
-YUI.add('screen', function(Y) {
 
-  'use strict';
+(function() {
 
-  var Screen,
-      _bridge,
+  var _bridge,
       i,
       prefix,
       extensions = ['webkit','moz','o','ms','khtml'],
       CLASSNAME = 'rmr-screen';
 
-  _bridge = {
-    prefix : '',
-    supported : false,
-    isFullScreen : function() { return false; },
-    exit : function() { },
-    request : function() { },
-    eventName : null
-  };
-
+      _bridge = {
+        prefix : '',
+        supported : false,
+        isFullScreen : function() { return false; },
+        exit : function() { },
+        request : function() { },
+        eventName : null
+      };
 
   if (typeof document.cancelFullScreen != 'undefined') { // check for native support
     _bridge.supported = true;
-  } else {
-
+  }
+  else {
     for (i = 0; i < extensions.length; i++ ) { // check for fullscreen support by vendor prefix
 
       prefix = extensions[i];
@@ -49,11 +46,9 @@ YUI.add('screen', function(Y) {
   }
 
   if (_bridge.supported) {
-
     _bridge.eventName = _bridge.prefix + 'fullscreenchange';
-
     _bridge.request = function(node) {
-      return ! prefix ? node._node.requestFullScreen() : node._node[prefix + 'RequestFullScreen']();
+      return ! prefix ? node.requestFullScreen() : node[prefix + 'RequestFullScreen']();
     };
 
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
@@ -80,147 +75,62 @@ YUI.add('screen', function(Y) {
     };
   }
 
-  /**
-   @class Screen
-   @constructor
-   @extends Y.Base
-   @param config {object}
-   */
-  Screen = function(config) {
-    Screen.superclass.constructor.apply(this, arguments);
-    if (! _bridge.supported) { return false; }
+  window.Screen = function(selector) {
 
-    this.set('node', config.hasOwnProperty('node') ? config.node : document.body);
+    this.node = document.querySelector(selector);
+    this.events = {
+      'exit' : function() { },
+      'fullscreen' : function() { }
+    };
+
     var $ = this;
 
-    if (! this.get('node')) { return null; }
+    this.listener = function(e) {
 
-    this.set('listener', function(e) {
-
-      /**
-       Fired when the node gains full-screen control
-
-       @event fullscreen
-       */
       if ($.isFullScreen()) {
-        $.fire('fullscreen');
-        $.get('node').addClass(CLASSNAME);
+        $.events.fullscreen();
+        $.node.classList.add(CLASSNAME);
 
-      /**
-       Fired when the node loses full-screen control
-
-       @event exit
-       */
       } else {
-        $.fire('exit');
-        $.get('node').removeClass(CLASSNAME);
+        $.events.exit();
+        $.node.classList.remove(CLASSNAME);
       }
-    });
+    };
 
     if (_bridge.prefix == 'moz') {
-      document.addEventListener('mozfullscreenchange', this.get('listener'));
+      document.addEventListener('mozfullscreenchange', this.listener);
     } else {
-      this.get('node')._node.addEventListener(_bridge.eventName, this.get('listener'));
+      $.node.addEventListener(_bridge.eventName, this.listener);
     }
   };
 
-  Screen.ATTRS = {
 
-    /**
-     Reference to the Node that this object is bound to
-
-     @property node
-     @type {Node}
-     */
-    'node' : {
-      setter : function(node) {
-        return Y.one(node);
-      },
-      writeOnce : true
-    },
-    'listener' : { }
+  window.Screen.prototype.isSupported = function() {
+    return _bridge.supported;
   };
 
-  Screen.NAME = 'screen';
+  window.Screen.prototype.request = function() {
+      _bridge.request(this.node);
+  };
 
+  window.Screen.prototype.isFullScreen = function() {
+    return _bridge.isFullScreen();
+  };
 
-  Y.Screen = Y.extend(Screen, Y.Base, {
+  window.Screen.prototype.on = function(event, method) {
+    this.events[event] = method;
+  };
 
-    /**
-     Determines if the browser is currently in full-screen mode
+  window.Screen.prototype.toggle = function() {
+    return this.isFullScreen() ? this.exit() : this.request();
+  };
 
-     @method isFullScreen
-     @return {boolean}
-     */
-    isFullScreen : function() {
-      return _bridge.isFullScreen();
-    },
+  window.Screen.prototype.exit = function() {
+    _bridge.exit();
+  };
 
-    /**
-     Determine whether or not the browser supports full-screen elements
+  window.Screen.prototype.toString = function() {
+    return 'Screen <' + this.node + '>';
+  };
 
-     @method isSupported
-     @return {boolean}
-     */
-    isSupported : function() {
-      return _bridge.supported;
-    },
-
-    /**
-     A convenience method to switch between request() and exit() based on the current state
-
-     @method toggle
-     @chainable
-     @see request
-     @see exit
-     */
-    toggle : function() {
-      return this.isFullScreen() ? this.exit() : this.request();
-    },
-
-    /**
-     Attempt to enter fullscreen mode
-
-     @method request
-     @chainable
-     */
-    request : function() {
-      var n = this.get('node');
-      _bridge.request(n);
-
-      return this;
-    },
-
-    /**
-     Exit fullscreen mode
-
-     @method exit
-     @chainable
-     */
-    exit : function() {
-      _bridge.exit();
-      return this;
-    },
-
-    /**
-     Returns a string representation of the object
-
-     @method toString
-     @return {String}
-     */
-    toString : function() {
-      return 'Screen <' + this.get('node') + '>';
-    },
-
-    /*
-     Clean up
-     */
-    destructor : function() {
-      if (this.get('node')) {
-        this.get('node')._node.removeEventListener(_bridge.eventName, this.get('listener'));
-        this.set('node', null);
-      }
-    }
-  });
-
-}, '3.3.1', { requires : ['node', 'event', 'base']});
+}());
