@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8">
   <title>Screen</title>
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
   <style>
     body {
@@ -21,15 +20,16 @@
       height: 100%;
     }
 
-    div i.fa {
+    div i {
       font-size: 36px;
       cursor: pointer;
-      transition: 0.1s color linear;
+      transition: 0.2s color linear;
       display: inline-block;
       font-weight: bold;
+      font-style: normal;
     }
 
-    div i.fa:hover {
+    div i:hover {
       color: #444;
     }
 
@@ -109,13 +109,13 @@
 <div id="doc">
 
   <div class="request">
-    <i class="fa fa-external-link-square" title="Enter full-screen"></i>
+    <i title="Enter full-screen">↗</i>
   </div>
   <div class="exit">
-    <i class="fa fa-close" title="Exit full-screen"></i>
+    <i title="Exit full-screen">⎋</i>
   </div>
   <div class="no-screen">
-    <p><i class="fa fa-ban"></i> Sorry, your browser doesn't support full-screen.</p>
+    <p>🚫 Sorry, your browser doesn't support full-screen.</p>
   </div>
 
   <footer>
@@ -130,18 +130,15 @@
 var s = new Screen('#doc');
 if (s.isSupported()) {
 
-  s.on('fullscreen', function(e) {
-    window.console.log('fullscreen!!');
-  })
+  s.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
   s.on('exit', function(e) { window.console.log('exit!!'); })
 
-
   document.querySelector('div.request i').addEventListener('click', function(e){
-    s.request();
+    s.toggle();
   });
 
   document.querySelector('div.exit i').addEventListener('click', function(e){
-    s.exit();
+    s.toggle();
   });
 
 } else {

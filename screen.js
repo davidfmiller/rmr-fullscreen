@@ -75,9 +75,15 @@
     };
   }
 
-  window.Screen = function(selector) {
+   /**
+    * Create a new instance of 
+    *
+    * @param {String} selector 
+    */
+  window.Screen = function(node) {
 
-    this.node = document.querySelector(selector);
+    this.node = typeof node == 'string' ? document.querySelector(node) : node;
+
     this.events = {
       'exit' : function() { },
       'fullscreen' : function() { }
@@ -85,7 +91,7 @@
 
     var $ = this;
 
-    this.listener = function(e) {
+    var listener = function(e) {
 
       if ($.isFullScreen()) {
         $.events.fullscreen();
@@ -98,39 +104,81 @@
     };
 
     if (_bridge.prefix == 'moz') {
-      document.addEventListener('mozfullscreenchange', this.listener);
+      document.addEventListener('mozfullscreenchange', listener);
     } else {
-      $.node.addEventListener(_bridge.eventName, this.listener);
+      $.node.addEventListener(_bridge.eventName, listener);
     }
   };
 
-
+   /**
+    * Determine whether or not the browser has full-screen support
+    *
+    * @return {Boolean} 
+    */
   window.Screen.prototype.isSupported = function() {
     return _bridge.supported;
   };
 
+   /**
+    * Request full-screen mode
+    *
+    * @chainable
+    */
   window.Screen.prototype.request = function() {
       _bridge.request(this.node);
+      return this;
   };
 
+   /**
+    * Determine if the node is in full-screen mode
+    *
+    * @return {Boolean} 
+    */
   window.Screen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
   };
 
-  window.Screen.prototype.on = function(event, method) {
-    this.events[event] = method;
+   /**
+    * Assign a handler for an event
+    *
+    * @param {String} e - event name to attach to, one of 'fullscreen' or 'exit'
+    * @param {Function} func - function to invoke when event occurs
+    * @chainable
+    */
+  window.Screen.prototype.on = function(event, func) {
+    this.events[event] = func;
+    return this;
   };
 
+  /**
+    * Stops event bubbling further.
+    *
+    * @param {Event} e Event to prevent from bubbling further.
+    * @chainable
+    */
   window.Screen.prototype.toggle = function() {
-    return this.isFullScreen() ? this.exit() : this.request();
+    this.isFullScreen() ? this.exit() : this.request();
+    return this;
   };
 
+  /**
+    * Stops event bubbling further.
+    *
+    * @param {Event} e Event to prevent from bubbling further.
+    * @chainable
+    */
   window.Screen.prototype.exit = function() {
     _bridge.exit();
+    return this;
   };
 
+  /**
+    * Stops event bubbling further.
+    *
+    * @param {Event} e Event to prevent from bubbling further.
+    */
   window.Screen.prototype.toString = function() {
-    return 'Screen <' + this.node + '>';
+    return 'Screen <' + this.node.toString() + '>';
   };
 
 }());
