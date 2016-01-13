@@ -6,7 +6,6 @@
  * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
  * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
  *
- * Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
  */
 
 /**
@@ -14,6 +13,8 @@
  */
 
 (function() {
+
+  'use strict';
 
   var _bridge,
       i,
@@ -51,7 +52,10 @@
       return ! prefix ? node.requestFullScreen() : node[prefix + 'RequestFullScreen']();
     };
 
+    // normalize method to exit out of fullscreen mode
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
+
+    // normalize method to determine if we're currently in fullscreen mode
     _bridge.isFullScreen = function() {
       var r = null;
       switch (prefix) {
@@ -75,10 +79,11 @@
     };
   }
 
+
    /**
-    * Create a new instance of 
+    * Create a new instance of
     *
-    * @param {String} selector 
+    * @param {String} selector
     */
   window.Screen = function(node) {
 
@@ -110,10 +115,11 @@
     }
   };
 
+
    /**
     * Determine whether or not the browser has full-screen support
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isSupported = function() {
     return _bridge.supported;
@@ -129,14 +135,16 @@
       return this;
   };
 
+
    /**
     * Determine if the node is in full-screen mode
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
   };
+
 
    /**
     * Assign a handler for an event
@@ -162,7 +170,7 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Exit full-screen mode
     *
     * @param {Event} e Event to prevent from bubbling further.
     * @chainable
@@ -173,7 +181,7 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Return string
     *
     * @param {Event} e Event to prevent from bubbling further.
     */
