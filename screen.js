@@ -89,6 +89,10 @@
 
     this.node = typeof node == 'string' ? document.querySelector(node) : node;
 
+    if (! node instanceof HTMLElement) {
+      throw Error('Invalid Screen node <' + node + '>');
+    }
+
     this.events = {
       'exit' : function() { },
       'fullscreen' : function() { }
