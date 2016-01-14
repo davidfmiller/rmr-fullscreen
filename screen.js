@@ -15,6 +15,8 @@
 
 (function() {
 
+  if (window.Screen) { return; }
+
   var _bridge,
       i,
       prefix,
@@ -78,7 +80,7 @@
    /**
     * Create a new Screen instance
     *
-    * @param {String} selector 
+    * @param {String} selector
     */
   window.Screen = function(node) {
 
@@ -113,7 +115,7 @@
    /**
     * Determine whether or not the browser has full-screen support
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isSupported = function() {
     return _bridge.supported;
@@ -132,7 +134,7 @@
    /**
     * Determine if the node is in full-screen mode
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
@@ -171,7 +173,7 @@
   };
 
   /**
-    * Return a String instance 
+    * Return a String instance
     *
     * @return {String}
     */
