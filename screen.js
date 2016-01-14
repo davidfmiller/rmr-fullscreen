@@ -14,7 +14,10 @@
 
 (function() {
 
+
   'use strict';
+
+  if (window.Screen) { return; }
 
   var _bridge,
       i,
@@ -81,7 +84,7 @@
 
 
    /**
-    * Create a new instance of
+    * Create a new Screen instance
     *
     * @param {String} selector
     */
@@ -151,7 +154,7 @@
 
 
    /**
-    * Assign a handler for an event
+    * Assign handler for a Screen event
     *
     * @param {String} e - event name to attach to, one of 'fullscreen' or 'exit'
     * @param {Function} func - function to invoke when event occurs
@@ -163,9 +166,8 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Exits full-screen mode if enabled, or requests the screen if not
     *
-    * @param {Event} e Event to prevent from bubbling further.
     * @chainable
     */
   window.Screen.prototype.toggle = function() {
@@ -176,7 +178,6 @@
   /**
     * Exit full-screen mode
     *
-    * @param {Event} e Event to prevent from bubbling further.
     * @chainable
     */
   window.Screen.prototype.exit = function() {
@@ -185,9 +186,9 @@
   };
 
   /**
-    * Return string
+    * Return a String instance
     *
-    * @param {Event} e Event to prevent from bubbling further.
+    * @return {String}
     */
   window.Screen.prototype.toString = function() {
     return 'Screen <' + this.node.toString() + '>';
