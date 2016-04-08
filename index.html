@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Screen</title>
+  <title>FullScreen</title>
 
   <style>
     body {
@@ -124,10 +124,10 @@
 
 </div>
 
-<script src="screen.js"></script>
+<script src="fullscreen.js"></script>
 <script>
 
-var s = new Screen('#doc');
+var s = new FullScreen('#doc');
 if (s.isSupported()) {
 
   s.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
