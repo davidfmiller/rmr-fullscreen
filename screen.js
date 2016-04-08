@@ -108,6 +108,8 @@
     } else {
       $.node.addEventListener(_bridge.eventName, listener);
     }
+    
+    return this;
   };
 
    /**
