@@ -6,7 +6,6 @@
  * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
  * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
  *
- * Much love to http://johndyer.name/native-fullscreen-javascript-api-plus-jquery-plugin/
  */
 
 /**
@@ -14,6 +13,11 @@
  */
 
 (function() {
+
+
+  'use strict';
+
+  if (window.Screen) { return; }
 
   var _bridge,
       i,
@@ -51,7 +55,10 @@
       return ! prefix ? node.requestFullScreen() : node[prefix + 'RequestFullScreen']();
     };
 
+    // normalize method to exit out of fullscreen mode
     _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
+
+    // normalize method to determine if we're currently in fullscreen mode
     _bridge.isFullScreen = function() {
       var r = null;
       switch (prefix) {
@@ -75,14 +82,19 @@
     };
   }
 
+
    /**
-    * Create a new instance of 
+    * Create a new Screen instance
     *
-    * @param {String} selector 
+    * @param {String} selector
     */
   window.Screen = function(node) {
 
     this.node = typeof node == 'string' ? document.querySelector(node) : node;
+
+    if (! node instanceof HTMLElement) {
+      throw Error('Invalid Screen node <' + node + '>');
+    }
 
     this.events = {
       'exit' : function() { },
@@ -112,10 +124,11 @@
     return this;
   };
 
+
    /**
     * Determine whether or not the browser has full-screen support
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isSupported = function() {
     return _bridge.supported;
@@ -131,17 +144,19 @@
       return this;
   };
 
+
    /**
     * Determine if the node is in full-screen mode
     *
-    * @return {Boolean} 
+    * @return {Boolean}
     */
   window.Screen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
   };
 
+
    /**
-    * Assign a handler for an event
+    * Assign handler for a Screen event
     *
     * @param {String} e - event name to attach to, one of 'fullscreen' or 'exit'
     * @param {Function} func - function to invoke when event occurs
@@ -153,9 +168,8 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Exits full-screen mode if enabled, or requests the screen if not
     *
-    * @param {Event} e Event to prevent from bubbling further.
     * @chainable
     */
   window.Screen.prototype.toggle = function() {
@@ -164,9 +178,8 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Exit full-screen mode
     *
-    * @param {Event} e Event to prevent from bubbling further.
     * @chainable
     */
   window.Screen.prototype.exit = function() {
@@ -175,9 +188,9 @@
   };
 
   /**
-    * Stops event bubbling further.
+    * Return a String instance
     *
-    * @param {Event} e Event to prevent from bubbling further.
+    * @return {String}
     */
   window.Screen.prototype.toString = function() {
     return 'Screen <' + this.node.toString() + '>';
