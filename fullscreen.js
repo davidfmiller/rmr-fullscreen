@@ -90,7 +90,7 @@
 
     this.node = typeof node == 'string' ? document.querySelector(node) : node;
 
-    if (! node instanceof HTMLElement) {
+    if (! (node instanceof HTMLElement)) {
       throw Error('Invalid FullScreen node <' + node + '>');
     }
 
