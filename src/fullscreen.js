@@ -9,7 +9,7 @@
  */
 
 /**
- @module screen
+ @module fullscreen
  */
 
 (function() {
