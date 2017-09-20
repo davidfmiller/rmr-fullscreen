@@ -1,11 +1,13 @@
 {
   "name": "fullscreen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
     "grunt": "~0.4.5",
-    "grunt-contrib-uglify": "*",
     "grunt-contrib-compass": "*",
     "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*"
   }
 }

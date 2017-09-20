@@ -15,7 +15,7 @@
 (function() {
   'use strict';
 
-  if (window.FullScreen) { return; }
+//  if (window.FullScreen) { return; }
 
   var _bridge,
       i,
@@ -86,7 +86,7 @@
     *
     * @param {String} selector
     */
-  window.FullScreen = function(node) {
+  var FullScreen = function(node) {
 
     this.node = typeof node == 'string' ? document.querySelector(node) : node;
 
@@ -128,7 +128,7 @@
     *
     * @return {Boolean}
     */
-  window.FullScreen.prototype.isSupported = function() {
+  FullScreen.prototype.isSupported = function() {
     return _bridge.supported;
   };
 
@@ -137,7 +137,7 @@
     *
     * @chainable
     */
-  window.FullScreen.prototype.request = function() {
+  FullScreen.prototype.request = function() {
       _bridge.request(this.node);
       return this;
   };
@@ -148,7 +148,7 @@
     *
     * @return {Boolean}
     */
-  window.FullScreen.prototype.isFullScreen = function() {
+  FullScreen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
   };
 
@@ -160,7 +160,7 @@
     * @param {Function} func - function to invoke when event occurs
     * @chainable
     */
-  window.FullScreen.prototype.on = function(event, func) {
+  FullScreen.prototype.on = function(event, func) {
     this.events[event] = func;
     return this;
   };
@@ -170,7 +170,7 @@
     *
     * @chainable
     */
-  window.FullScreen.prototype.toggle = function() {
+  FullScreen.prototype.toggle = function() {
     if (this.isFullScreen()) {
       this.exit();
     } else {
@@ -184,7 +184,7 @@
     *
     * @chainable
     */
-  window.FullScreen.prototype.exit = function() {
+  FullScreen.prototype.exit = function() {
     _bridge.exit();
     return this;
   };
@@ -194,8 +194,10 @@
     *
     * @return {String}
     */
-  window.FullScreen.prototype.toString = function() {
+  FullScreen.prototype.toString = function() {
     return 'Screen <' + this.node.toString() + '>';
   };
+
+  module.exports = FullScreen;
 
 }());

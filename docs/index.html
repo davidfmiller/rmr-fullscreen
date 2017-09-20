@@ -124,26 +124,29 @@
 
 </div>
 
-<script src="fullscreen.js"></script>
+<script src="build/fullscreen.bundle.js"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function(event) {
 
-var s = new FullScreen('#doc');
-if (s.isSupported()) {
+  var s = new FullScreen('#doc');
+  if (s.isSupported()) {
 
-  s.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
-  s.on('exit', function(e) { window.console.log('exit!!'); })
+    s.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
+    s.on('exit', function(e) { window.console.log('exit!!'); })
 
-  document.querySelector('div.request i').addEventListener('click', function(e){
-    s.toggle();
-  });
+    document.querySelector('div.request i').addEventListener('click', function(e){
+      s.toggle();
+    });
 
-  document.querySelector('div.exit i').addEventListener('click', function(e){
-    s.toggle();
-  });
+    document.querySelector('div.exit i').addEventListener('click', function(e){
+      s.toggle();
+    });
 
-} else {
-  document.querySelector('#doc').classList.add('unsupported');
-}
+  } else {
+    document.querySelector('#doc').classList.add('unsupported');
+  }
+
+});
 </script>
 </body>
 </html>
