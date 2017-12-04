@@ -1,10 +1,4 @@
-/* jshint undef: true,strict:true,trailing:true,loopfunc:true */
-/* global document,window,Element,module,require */
-
 (function() {
-
-  "use strict";
-
+  'use strict';
   window.FullScreen = require('./fullscreen.js');
-
-}());
+})();
