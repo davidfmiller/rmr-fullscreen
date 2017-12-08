@@ -1,7 +1,3 @@
-/* jshint undef: true,strict:true,trailing:true */
-/* global document,window,Image,HTMLElement */
-
-
 /*
  * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
  * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
@@ -11,35 +7,36 @@
 /**
  @module fullscreen
  */
-
 (function() {
   'use strict';
 
 //  if (window.FullScreen) { return; }
 
-  var _bridge,
-      i,
-      prefix,
-      extensions = ['webkit','moz','o','ms','khtml'],
-      CLASSNAME = 'rmr-screen';
+  let
+  i,
+  prefix;
 
-      _bridge = {
-        prefix : '',
-        supported : false,
-        isFullScreen : function() { return false; },
-        exit : function() { },
-        request : function() { },
-        eventName : null
-      };
+  const
+  CLASSNAME = 'rmr-screen',
+  extensions = ['webkit','moz','o','ms','khtml'],
+  _bridge = {
+    prefix: '',
+    supported: false,
+    isFullScreen: function() {
+      return false;
+    },
+    exit: function() { },
+    request: function() { },
+    eventName: null
+  };
 
-  if (typeof document.cancelFullScreen != 'undefined') { // check for native support
+  if (typeof document.cancelFullScreen !== 'undefined') { // check for native support
     _bridge.supported = true;
   }
   else {
     for (i = 0; i < extensions.length; i++ ) { // check for fullscreen support by vendor prefix
-
       prefix = extensions[i];
-      if (typeof document[prefix + 'CancelFullScreen' ] != 'undefined') {
+      if (typeof document[prefix + 'CancelFullScreen' ] !== 'undefined') {
         _bridge.supported = true;
         _bridge.prefix = prefix;
         break;
@@ -54,11 +51,13 @@
     };
 
     // normalize method to exit out of fullscreen mode
-    _bridge.exit = function(node) { return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen'](); };
+    _bridge.exit = function(/* node */) {
+      return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen']();
+    };
 
     // normalize method to determine if we're currently in fullscreen mode
     _bridge.isFullScreen = function() {
-      var r = null;
+      let r = null;
       switch (prefix) {
         case 'webkit':
           r = document.webkitIsFullScreen;
@@ -80,43 +79,40 @@
     };
   }
 
-
    /**
     * Create a new Screen instance
     *
-    * @param {String} selector
+    * @param {String} node - the node that will be full-screened
+    * @return {Object} instance
     */
-  var FullScreen = function(node) {
-
-    this.node = typeof node == 'string' ? document.querySelector(node) : node;
+  const FullScreen = function(node) {
+    this.node = typeof node === 'string' ? document.querySelector(node) : node;
 
     if (! (this.node instanceof HTMLElement)) {
       throw Error('Invalid FullScreen node <' + node + '>');
     }
 
     this.events = {
-      'exit' : function() { },
-      'fullscreen' : function() { }
+      'exit': function() { },
+      'fullscreen': function() { }
     };
 
-    var $ = this;
-
-    var listener = function(e) {
-
-      if ($.isFullScreen()) {
-        $.events.fullscreen();
-        $.node.classList.add(CLASSNAME);
-
+    const
+    self = this,
+    listener = function() {
+      if (self.isFullScreen()) {
+        self.events.fullscreen();
+        self.node.classList.add(CLASSNAME);
       } else {
-        $.events.exit();
-        $.node.classList.remove(CLASSNAME);
+        self.events.exit();
+        self.node.classList.remove(CLASSNAME);
       }
     };
 
-    if (_bridge.prefix == 'moz') {
+    if (_bridge.prefix === 'moz') {
       document.addEventListener('mozfullscreenchange', listener);
     } else {
-      $.node.addEventListener(_bridge.eventName, listener);
+      self.node.addEventListener(_bridge.eventName, listener);
     }
 
     return this;
@@ -126,7 +122,7 @@
    /**
     * Determine whether or not the browser has full-screen support
     *
-    * @return {Boolean}
+    * @return {Boolean} `true` if the browser supports full-screen; `false` if not
     */
   FullScreen.prototype.isSupported = function() {
     return _bridge.supported;
@@ -135,6 +131,7 @@
    /**
     * Request full-screen mode
     *
+    * @return {Object} instance
     * @chainable
     */
   FullScreen.prototype.request = function() {
@@ -146,7 +143,7 @@
    /**
     * Determine if the node is in full-screen mode
     *
-    * @return {Boolean}
+    * @return {Boolean} `true` if node is in full-screen mode; `false` if not
     */
   FullScreen.prototype.isFullScreen = function() {
     return _bridge.isFullScreen();
@@ -156,18 +153,20 @@
    /**
     * Assign handler for a Screen event
     *
-    * @param {String} e - event name to attach to, one of 'fullscreen' or 'exit'
+    * @param {String} eventName - event name to attach to, one of 'fullscreen' or 'exit'
     * @param {Function} func - function to invoke when event occurs
+    * @return {FullScreen} instance for chaining
     * @chainable
     */
-  FullScreen.prototype.on = function(event, func) {
-    this.events[event] = func;
+  FullScreen.prototype.on = function(eventName, func) {
+    this.events[eventName] = func;
     return this;
   };
 
   /**
     * Exits full-screen mode if enabled, or requests the screen if not
     *
+    * @return {FullScreen} instance for chaining
     * @chainable
     */
   FullScreen.prototype.toggle = function() {
@@ -182,6 +181,7 @@
   /**
     * Exit full-screen mode
     *
+    * @return {Object} instance for chaining
     * @chainable
     */
   FullScreen.prototype.exit = function() {
@@ -192,12 +192,11 @@
   /**
     * Return a String instance
     *
-    * @return {String}
+    * @return {String} describing object
     */
   FullScreen.prototype.toString = function() {
     return 'Screen <' + this.node.toString() + '>';
   };
 
   module.exports = FullScreen;
-
-}());
+})();
