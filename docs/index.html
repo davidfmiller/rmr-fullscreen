@@ -18,7 +18,7 @@
       height: 100%;
     }
 
-    div i {
+    div b {
       font-size: 36px;
       cursor: pointer;
       transition: 0.2s color linear;
@@ -26,10 +26,10 @@
       border-radius: 60px;
       font-style: normal;
       margin: 0 auto;
-      background: #eee;
       font-size: 100px;
       background-size: 50%;
       border: 3px solid #ddd;
+      background-color: #eee;
       background-repeat: no-repeat;
       background-position: 50% 50%;
       width: 100px;
@@ -39,7 +39,7 @@
       transition: background-color 0.2s;
     }
 
-    div i:hover {
+    div b:hover {
       background-color: #ddd;
     }
 
@@ -63,11 +63,11 @@
       display: block;
     }
 
-    .request i {
+    .request b {
       background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMjE3IiBoZWlnaHQ9IjIxNyIgdmlld0JveD0iMCAwIDIxNyAyMTciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2FhYSIgZD0iTTAgMGg4OS41MDJsLTM3LjA2IDM3LjA2IDE2NC4zNTUgMTY0LjM1Ni0xNS4yMzQgMTUuMzhMMzcuMDYgNTIuMjk2IDAgODkuMzU1eiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+);
     }
 
-    .exit i {
+    .exit b {
       background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMjI4IiBoZWlnaHQ9IjIyOSIgdmlld0JveD0iMCAwIDIyOCAyMjkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyMS45MSAxMDcuMTNsLTE1LjIzNCAxNS4zODJMMjguMTYgNDMuOTk2LjE4MiA3MS45NzVWLjc4M2g3MS4xOTFMNDMuMzk1IDI4LjYxNWw3OC41MTUgNzguNTE2ek0xMTQgLjc4NGMzMS40NDUgMCA1OC4yNzYgMTEuMTA4IDgwLjQ5MyAzMy4zMjUgMjIuMjE3IDIyLjIxNyAzMy4zMjUgNDkuMDQ4IDMzLjMyNSA4MC40OTQgMCAzMS4zNDctMTEuMTA4IDU4LjE1NC0zMy4zMjUgODAuNDItMjIuMjE3IDIyLjI2NS00OS4wNDggMzMuMzk4LTgwLjQ5MyAzMy4zOTgtMzEuMzQ4IDAtNTguMTU0LTExLjEzMy04MC40Mi0zMy4zOTlDMTEuMzE0IDE3Mi43NTYuMTgyIDE0NS45NS4xODIgMTE0LjYwMWgyMS42OGMwIDI1LjI5NCA5LjAzMiA0Ni45NzMgMjcuMDk5IDY1LjA0IDE4LjA2NiAxOC4wNjYgMzkuNzQ2IDI3LjEgNjUuMDM5IDI3LjEgMjUuMzkgMCA0Ny4wOTUtOS4wMzQgNjUuMTEyLTI3LjEgMTguMDE4LTE4LjA2NyAyNy4wMjctMzkuNzQ2IDI3LjAyNy02NS4wNCAwLTI1LjM5LTkuMDA5LTQ3LjA5NC0yNy4wMjctNjUuMTEyQzE2MS4wOTUgMzEuNDcyIDEzOS4zOTEgMjIuNDYzIDExNCAyMi40NjNWLjc4M3oiIGZpbGw9IiNhYWEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
     }
 
@@ -101,23 +101,24 @@
 
 <div id="doc">
 
+  <h1><i>📺</i> fullscreen</h1>
+
   <div class="request">
-    <i title="Enter full-screen">↗</i>
+    <b title="Enter full-screen">↗</b>
   </div>
   <div class="exit">
-    <i title="Exit full-screen">⎋</i>
+    <b title="Exit full-screen">⎋</b>
   </div>
   <div class="no-screen">
     <p>🚫 Sorry, your browser doesn't support full-screen.</p>
   </div>
 
-
-  <pre>var screen = new FullScreen(document.body);
-screen.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
-screen.on('exit', function(e) { window.console.log('exit!!'); })
-if (screen.isSupported()) {
-  screen.toggle();
-}</pre>
+  <pre><span class="kr">const</span> <span class="nx">screen</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FullScreen</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+<span class="nx">screen</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;fullscreen&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fullscreen!!&#39;</span><span class="p">);</span> <span class="p">})</span>
+<span class="nx">screen</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nb">window</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;exit!!&#39;</span><span class="p">);</span> <span class="p">})</span>
+<span class="k">if</span> <span class="p">(</span><span class="nx">screen</span><span class="p">.</span><span class="nx">isSupported</span><span class="p">())</span> <span class="p">{</span>
+  <span class="nx">screen</span><span class="p">.</span><span class="nx">toggle</span><span class="p">();</span>
+<span class="p">}</span></pre>
 
   <footer>
     <hr>
@@ -130,6 +131,10 @@ if (screen.isSupported()) {
 
 </div>
 
+<script src="https://davidfmiller.github.io/man/man.js"></script>
+<script>
+  window.Man({pre: true});
+</script>
 <script src="build/fullscreen.bundle.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
@@ -140,11 +145,11 @@ document.addEventListener('DOMContentLoaded', function(event) {
     screen.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
     screen.on('exit', function(e) { window.console.log('exit!!'); })
 
-    document.querySelector('div.request i').addEventListener('click', function(e){
+    document.querySelector('div.request b').addEventListener('click', function(e){
       screen.toggle();
     });
 
-    document.querySelector('div.exit i').addEventListener('click', function(e){
+    document.querySelector('div.exit b').addEventListener('click', function(e){
       screen.toggle();
     });
 
