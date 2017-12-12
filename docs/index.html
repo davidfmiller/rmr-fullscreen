@@ -12,11 +12,12 @@
       height: 100%;
     }
 
-    #doc {
+    #man {
       margin: 0 auto;
       width: 800px;
       height: 100%;
     }
+
 
     div b {
       font-size: 36px;
@@ -26,6 +27,7 @@
       border-radius: 60px;
       font-style: normal;
       margin: 0 auto;
+      background-color: #eee;
       font-size: 100px;
       background-size: 50%;
       border: 3px solid #ddd;
@@ -39,23 +41,24 @@
       transition: background-color 0.2s;
     }
 
+
     div b:hover {
       background-color: #ddd;
     }
 
-    #doc.rmr-screen {
+    #man.rmr-screen {
       background: #ddd;
     }
 
-    #doc.rmr-screen .exit i.fa:hover {
+    #man.rmr-screen .exit i.fa:hover {
       color: red;
     }
 
-    #doc.rmr-screen .exit {
+    #man.rmr-screen .exit {
       display: block;
     }
 
-    #doc.unsupported i.fa {
+    #man.unsupported i.fa {
       font-size: 12px;
     }
 
@@ -71,27 +74,27 @@
       background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMjI4IiBoZWlnaHQ9IjIyOSIgdmlld0JveD0iMCAwIDIyOCAyMjkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyMS45MSAxMDcuMTNsLTE1LjIzNCAxNS4zODJMMjguMTYgNDMuOTk2LjE4MiA3MS45NzVWLjc4M2g3MS4xOTFMNDMuMzk1IDI4LjYxNWw3OC41MTUgNzguNTE2ek0xMTQgLjc4NGMzMS40NDUgMCA1OC4yNzYgMTEuMTA4IDgwLjQ5MyAzMy4zMjUgMjIuMjE3IDIyLjIxNyAzMy4zMjUgNDkuMDQ4IDMzLjMyNSA4MC40OTQgMCAzMS4zNDctMTEuMTA4IDU4LjE1NC0zMy4zMjUgODAuNDItMjIuMjE3IDIyLjI2NS00OS4wNDggMzMuMzk4LTgwLjQ5MyAzMy4zOTgtMzEuMzQ4IDAtNTguMTU0LTExLjEzMy04MC40Mi0zMy4zOTlDMTEuMzE0IDE3Mi43NTYuMTgyIDE0NS45NS4xODIgMTE0LjYwMWgyMS42OGMwIDI1LjI5NCA5LjAzMiA0Ni45NzMgMjcuMDk5IDY1LjA0IDE4LjA2NiAxOC4wNjYgMzkuNzQ2IDI3LjEgNjUuMDM5IDI3LjEgMjUuMzkgMCA0Ny4wOTUtOS4wMzQgNjUuMTEyLTI3LjEgMTguMDE4LTE4LjA2NyAyNy4wMjctMzkuNzQ2IDI3LjAyNy02NS4wNCAwLTI1LjM5LTkuMDA5LTQ3LjA5NC0yNy4wMjctNjUuMTEyQzE2MS4wOTUgMzEuNDcyIDEzOS4zOTEgMjIuNDYzIDExNCAyMi40NjNWLjc4M3oiIGZpbGw9IiNhYWEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
     }
 
-    #doc.unsupported div { display: none; }
-    #doc.unsupported div.no-screen {
+    #man.unsupported div { display: none; }
+    #man.unsupported div.no-screen {
       display: block;
       color: red;
     }
 
-    #doc div {
+    #man div {
       padding: 20px 0;
       text-align: center;
       display: none;
     }
 
-    #doc .request {
+    #man .request {
       display: block;
     }
 
-    body.rmr-screen #doc div.request {
+    body.rmr-screen #man div.request {
       display: none;
     }
 
-    body.rmr-screen #doc div.exit {
+    body.rmr-screen #man div.exit {
       display: block;
     }
 
@@ -99,9 +102,11 @@
 </head>
 <body>
 
-<div id="doc">
+<div id="man">
 
   <h1><i>📺</i> fullscreen</h1>
+
+  <p>A simple JavaScript module to normalize browsers’ various fullscreen APIs.</p>
 
   <div class="request">
     <b title="Enter full-screen">↗</b>
@@ -132,9 +137,6 @@
 </div>
 
 <script src="https://davidfmiller.github.io/man/man.js"></script>
-<script>
-  window.Man({pre: true});
-</script>
 <script src="build/fullscreen.bundle.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
@@ -157,6 +159,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     document.querySelector('#doc').classList.add('unsupported');
   }
 
+  window.Man({pre: true});
 });
 </script>
 </body>
