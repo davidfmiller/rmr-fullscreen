@@ -1,278 +1,262 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
+/******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/ 		}
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
+/******/ 		module.loaded = true;
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ function(module, exports, __webpack_require__) {
 
-(function () {
-  'use strict';
+	(function() {
+	  'use strict';
+	  window.FullScreen = __webpack_require__(1);
+	})();
 
-  window.FullScreen = __webpack_require__(1);
-})();
 
-/***/ }),
+/***/ },
 /* 1 */
-/***/ (function(module, exports) {
+/***/ function(module, exports) {
 
-/*
- * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
- * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
- *
- */
+	/*
+	 * Bridge the gap between browsers' various implementations of zooming elements to full-screen.
+	 * https://developer.mozilla.org/en/DOM/Using_full-screen_mode
+	 *
+	 */
 
-/**
- @module fullscreen
- */
-(function () {
-  'use strict';
+	/**
+	 @module fullscreen
+	 */
+	(function() {
+	  'use strict';
 
-  //  if (window.FullScreen) { return; }
+	//  if (window.FullScreen) { return; }
 
-  let i, prefix;
+	  let
+	  i,
+	  prefix;
 
-  const CLASSNAME = 'rmr-screen',
-        extensions = ['webkit', 'moz', 'o', 'ms', 'khtml'],
-        _bridge = {
-    prefix: '',
-    supported: false,
-    isFullScreen: function () {
-      return false;
-    },
-    exit: function () {},
-    request: function () {},
-    eventName: null
-  };
+	  const
+	  CLASSNAME = 'rmr-screen',
+	  extensions = ['webkit','moz','o','ms','khtml'],
+	  _bridge = {
+	    prefix: '',
+	    supported: false,
+	    isFullScreen: function() {
+	      return false;
+	    },
+	    exit: function() { },
+	    request: function() { },
+	    eventName: null
+	  };
 
-  if (typeof document.cancelFullScreen !== 'undefined') {
-    // check for native support
-    _bridge.supported = true;
-  } else {
-    for (i = 0; i < extensions.length; i++) {
-      // check for fullscreen support by vendor prefix
-      prefix = extensions[i];
-      if (typeof document[prefix + 'CancelFullScreen'] !== 'undefined') {
-        _bridge.supported = true;
-        _bridge.prefix = prefix;
-        break;
-      }
-    }
-  }
+	  if (typeof document.cancelFullScreen !== 'undefined') { // check for native support
+	    _bridge.supported = true;
+	  }
+	  else {
+	    for (i = 0; i < extensions.length; i++ ) { // check for fullscreen support by vendor prefix
+	      prefix = extensions[i];
+	      if (typeof document[prefix + 'CancelFullScreen' ] !== 'undefined') {
+	        _bridge.supported = true;
+	        _bridge.prefix = prefix;
+	        break;
+	      }
+	    }
+	  }
 
-  if (_bridge.supported) {
-    _bridge.eventName = _bridge.prefix + 'fullscreenchange';
-    _bridge.request = function (node) {
-      return !prefix ? node.requestFullScreen() : node[prefix + 'RequestFullScreen']();
-    };
+	  if (_bridge.supported) {
+	    _bridge.eventName = _bridge.prefix + 'fullscreenchange';
+	    _bridge.request = function(node) {
+	      return ! prefix ? node.requestFullScreen() : node[prefix + 'RequestFullScreen']();
+	    };
 
-    // normalize method to exit out of fullscreen mode
-    _bridge.exit = function () /* node */{
-      return !prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen']();
-    };
+	    // normalize method to exit out of fullscreen mode
+	    _bridge.exit = function(/* node */) {
+	      return ! prefix ? document.cancelFullScreen() : document[prefix + 'CancelFullScreen']();
+	    };
 
-    // normalize method to determine if we're currently in fullscreen mode
-    _bridge.isFullScreen = function () {
-      let r = null;
-      switch (prefix) {
-        case 'webkit':
-          r = document.webkitIsFullScreen;
-          break;
-        case 'moz':
-          r = document.mozFullScreenElement;
-          break;
-        default:
-          if (document.hasOwnProperty('fullScreen')) {
-            r = document.fullScreen;
-          } else if (document.hasOwnProperty('fullscreen')) {
-            r = document.fullscreen;
-          }
+	    // normalize method to determine if we're currently in fullscreen mode
+	    _bridge.isFullScreen = function() {
+	      let r = null;
+	      switch (prefix) {
+	        case 'webkit':
+	          r = document.webkitIsFullScreen;
+	          break;
+	        case 'moz':
+	          r = document.mozFullScreenElement;
+	          break;
+	        default:
+	          if (document.hasOwnProperty('fullScreen')) {
+	            r = document.fullScreen;
+	          } else if (document.hasOwnProperty('fullscreen')) {
+	            r = document.fullscreen;
+	          }
 
-          r = document[prefix + 'FullScreen'];
-      }
+	          r = document[prefix + 'FullScreen'];
+	      }
 
-      return r;
-    };
-  }
+	      return r;
+	    };
+	  }
 
-  /**
-   * Create a new Screen instance
-   *
-   * @param {String} node - the node that will be full-screened
-   * @return {Object} instance
-   */
-  const FullScreen = function (node) {
-    this.node = typeof node === 'string' ? document.querySelector(node) : node;
+	   /**
+	    * Create a new Screen instance
+	    *
+	    * @param {String} node - the node that will be full-screened
+	    * @return {Object} instance
+	    */
+	  const FullScreen = function(node) {
+	    this.node = typeof node === 'string' ? document.querySelector(node) : node;
 
-    if (!(this.node instanceof HTMLElement)) {
-      throw Error('Invalid FullScreen node <' + node + '>');
-    }
+	    if (! (this.node instanceof HTMLElement)) {
+	      throw Error('Invalid FullScreen node <' + node + '>');
+	    }
 
-    this.events = {
-      'exit': function () {},
-      'fullscreen': function () {}
-    };
+	    this.events = {
+	      'exit': function() { },
+	      'fullscreen': function() { }
+	    };
 
-    const self = this,
-          listener = function () {
-      if (self.isFullScreen()) {
-        self.events.fullscreen();
-        self.node.classList.add(CLASSNAME);
-      } else {
-        self.events.exit();
-        self.node.classList.remove(CLASSNAME);
-      }
-    };
+	    const
+	    self = this,
+	    listener = function() {
+	      if (self.isFullScreen()) {
+	        self.events.fullscreen();
+	        self.node.classList.add(CLASSNAME);
+	      } else {
+	        self.events.exit();
+	        self.node.classList.remove(CLASSNAME);
+	      }
+	    };
 
-    if (_bridge.prefix === 'moz') {
-      document.addEventListener('mozfullscreenchange', listener);
-    } else {
-      self.node.addEventListener(_bridge.eventName, listener);
-    }
+	    if (_bridge.prefix === 'moz') {
+	      document.addEventListener('mozfullscreenchange', listener);
+	    } else {
+	      self.node.addEventListener(_bridge.eventName, listener);
+	    }
 
-    return this;
-  };
+	    return this;
+	  };
 
-  /**
-   * Determine whether or not the browser has full-screen support
-   *
-   * @return {Boolean} `true` if the browser supports full-screen; `false` if not
-   */
-  FullScreen.prototype.isSupported = function () {
-    return _bridge.supported;
-  };
 
-  /**
-   * Request full-screen mode
-   *
-   * @return {Object} instance
-   * @chainable
-   */
-  FullScreen.prototype.request = function () {
-    _bridge.request(this.node);
-    return this;
-  };
+	   /**
+	    * Determine whether or not the browser has full-screen support
+	    *
+	    * @return {Boolean} `true` if the browser supports full-screen; `false` if not
+	    */
+	  FullScreen.prototype.isSupported = function() {
+	    return _bridge.supported;
+	  };
 
-  /**
-   * Determine if the node is in full-screen mode
-   *
-   * @return {Boolean} `true` if node is in full-screen mode; `false` if not
-   */
-  FullScreen.prototype.isFullScreen = function () {
-    return _bridge.isFullScreen();
-  };
+	   /**
+	    * Request full-screen mode
+	    *
+	    * @return {Object} instance
+	    * @chainable
+	    */
+	  FullScreen.prototype.request = function() {
+	      _bridge.request(this.node);
+	      return this;
+	  };
 
-  /**
-   * Assign handler for a Screen event
-   *
-   * @param {String} eventName - event name to attach to, one of 'fullscreen' or 'exit'
-   * @param {Function} func - function to invoke when event occurs
-   * @return {FullScreen} instance for chaining
-   * @chainable
-   */
-  FullScreen.prototype.on = function (eventName, func) {
-    this.events[eventName] = func;
-    return this;
-  };
 
-  /**
-    * Exits full-screen mode if enabled, or requests the screen if not
-    *
-    * @return {FullScreen} instance for chaining
-    * @chainable
-    */
-  FullScreen.prototype.toggle = function () {
-    if (this.isFullScreen()) {
-      this.exit();
-    } else {
-      this.request();
-    }
-    return this;
-  };
+	   /**
+	    * Determine if the node is in full-screen mode
+	    *
+	    * @return {Boolean} `true` if node is in full-screen mode; `false` if not
+	    */
+	  FullScreen.prototype.isFullScreen = function() {
+	    return _bridge.isFullScreen();
+	  };
 
-  /**
-    * Exit full-screen mode
-    *
-    * @return {Object} instance for chaining
-    * @chainable
-    */
-  FullScreen.prototype.exit = function () {
-    _bridge.exit();
-    return this;
-  };
 
-  /**
-    * Return a String instance
-    *
-    * @return {String} describing object
-    */
-  FullScreen.prototype.toString = function () {
-    return 'Screen <' + this.node.toString() + '>';
-  };
+	   /**
+	    * Assign handler for a Screen event
+	    *
+	    * @param {String} eventName - event name to attach to, one of 'fullscreen' or 'exit'
+	    * @param {Function} func - function to invoke when event occurs
+	    * @return {FullScreen} instance for chaining
+	    * @chainable
+	    */
+	  FullScreen.prototype.on = function(eventName, func) {
+	    this.events[eventName] = func;
+	    return this;
+	  };
 
-  module.exports = FullScreen;
-})();
+	  /**
+	    * Exits full-screen mode if enabled, or requests the screen if not
+	    *
+	    * @return {FullScreen} instance for chaining
+	    * @chainable
+	    */
+	  FullScreen.prototype.toggle = function() {
+	    if (this.isFullScreen()) {
+	      this.exit();
+	    } else {
+	      this.request();
+	    }
+	    return this;
+	  };
 
-/***/ })
+	  /**
+	    * Exit full-screen mode
+	    *
+	    * @return {Object} instance for chaining
+	    * @chainable
+	    */
+	  FullScreen.prototype.exit = function() {
+	    _bridge.exit();
+	    return this;
+	  };
+
+	  /**
+	    * Return a String instance
+	    *
+	    * @return {String} describing object
+	    */
+	  FullScreen.prototype.toString = function() {
+	    return 'Screen <' + this.node.toString() + '>';
+	  };
+
+	  module.exports = FullScreen;
+	})();
+
+
+/***/ }
 /******/ ]);

@@ -13,6 +13,11 @@ const config = {
     filename: 'fullscreen.bundle.js'
   },
   watch: true,
+  plugins : [
+    new webpack.optimize.UglifyJsPlugin({
+      compress: { warnings: false }
+    })
+  ],
   module: {
     rules: [
 /*
@@ -24,12 +29,12 @@ const config = {
 */
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, 'src'),
+//        include: path.resolve(__dirname, 'src'),
         use: [{
           loader: 'babel-loader',
           options: {
             presets: [
-              // ['es2015', { modules: false }]
+              ['es2015', { modules: false }]
             ]
           }
         }]
