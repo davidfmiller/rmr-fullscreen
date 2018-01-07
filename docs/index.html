@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>fullscreen</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=800px, initial-scale=1">
   <link rel="stylesheet" type="text/css" href="https://davidfmiller.github.io/man/man.css">
   <link rel="apple-touch-icon" href="./apple-touch-icon.png">
 
@@ -28,32 +28,24 @@
       height: 100%;
     }
 
-
     div b {
-      font-size: 36px;
       cursor: pointer;
-      transition: 0.2s color linear;
+      transition: transform ease-out 0.1s;
       display: block;
-      border-radius: 60px;
       font-style: normal;
       margin: 0 auto;
-      background-color: #eee;
-      font-size: 100px;
-      background-size: 50%;
-      border: 3px solid #ddd;
-      background-color: #eee;
+      background-size: 100%;
       background-repeat: no-repeat;
       background-position: 50% 50%;
-      width: 100px;
-      height: 100px;
+      width: 200px;
+      height: 200px;
       text-indent: -1000em;
       overflow: hidden;
-      transition: background-color 0.2s;
     }
 
 
     div b:hover {
-      background-color: #ddd;
+      transform: scale(1.2);
     }
 
     #man.rmr-screen {
@@ -77,11 +69,20 @@
     }
 
     .request b {
-      background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMjE3IiBoZWlnaHQ9IjIxNyIgdmlld0JveD0iMCAwIDIxNyAyMTciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iI2FhYSIgZD0iTTAgMGg4OS41MDJsLTM3LjA2IDM3LjA2IDE2NC4zNTUgMTY0LjM1Ni0xNS4yMzQgMTUuMzhMMzcuMDYgNTIuMjk2IDAgODkuMzU1eiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+);
+      background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMzciIGhlaWdodD0iMzciIHZpZXdCb3g9IjAgMCAzNyAzNyIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48dGl0bGU+ZnVsbDwvdGl0bGU+PGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+PGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+PHBhdGggZD0iTTE4LjUsMzcgQzguMjgyNzMyMTMsMzcgMCwyOC43MTcyNjc5IDAsMTguNSBDMCw4LjI4MjczMjEzIDguMjgyNzMyMTMsMCAxOC41LDAgQzI4LjcxNzI2NzksMCAzNyw4LjI4MjczMjEzIDM3LDE4LjUgQzM3LDI4LjcxNzI2NzkgMjguNzE3MjY3OSwzNyAxOC41LDM3IFogTTEyLjk5OTIwMzgsOSBDMTIuOTMyODk5Niw5IDEyLjg2OTMxMTIsOS4wMjYzMzkyMSAxMi44MjI0MjcxLDkuMDczMjIzMyBDMTIuNzI0Nzk2LDkuMTcwODU0MzggMTIuNzI0Nzk2LDkuMzI5MTQ1NjIgMTIuODIyNDI3MSw5LjQyNjc3NjcgTDI3LjU3MzIyMzMsMjQuMTc3NTcyOSBDMjcuNjIwMTA3NCwyNC4yMjQ0NTcgMjcuNjgzNjk1OSwyNC4yNTA3OTYyIDI3Ljc1LDI0LjI1MDc5NjIgQzI3Ljg4ODA3MTIsMjQuMjUwNzk2MiAyOCwyNC4xMzg4Njc0IDI4LDI0LjAwMDc5NjIgTDI4LDkuNSBDMjgsOS4yMjM4NTc2MyAyNy43NzYxNDI0LDkgMjcuNSw5IEwxMi45OTkyMDM4LDkgWiBNOS41LDI4IEwyNC4wMDA3OTYyLDI4IEMyNC4wNjcxMDA0LDI4IDI0LjEzMDY4ODgsMjcuOTczNjYwOCAyNC4xNzc1NzI5LDI3LjkyNjc3NjcgQzI0LjI3NTIwNCwyNy44MjkxNDU2IDI0LjI3NTIwNCwyNy42NzA4NTQ0IDI0LjE3NzU3MjksMjcuNTczMjIzMyBMOS40MjY3NzY3LDEyLjgyMjQyNzEgQzkuMzc5ODkyNiwxMi43NzU1NDMgOS4zMTYzMDQxMiwxMi43NDkyMDM4IDkuMjUsMTIuNzQ5MjAzOCBDOS4xMTE5Mjg4MSwxMi43NDkyMDM4IDksMTIuODYxMTMyNiA5LDEyLjk5OTIwMzggTDksMjcuNSBDOSwyNy43NzYxNDI0IDkuMjIzODU3NjMsMjggOS41LDI4IFoiIGlkPSJmdWxsIiBmaWxsPSIjN0VEMzIxIi8+PC9nPjwvc3ZnPg==);
     }
 
     .exit b {
-      background-image: url(data:image/svg+xml;charset=UTF-8;base64,PHN2ZyB3aWR0aD0iMjI4IiBoZWlnaHQ9IjIyOSIgdmlld0JveD0iMCAwIDIyOCAyMjkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEyMS45MSAxMDcuMTNsLTE1LjIzNCAxNS4zODJMMjguMTYgNDMuOTk2LjE4MiA3MS45NzVWLjc4M2g3MS4xOTFMNDMuMzk1IDI4LjYxNWw3OC41MTUgNzguNTE2ek0xMTQgLjc4NGMzMS40NDUgMCA1OC4yNzYgMTEuMTA4IDgwLjQ5MyAzMy4zMjUgMjIuMjE3IDIyLjIxNyAzMy4zMjUgNDkuMDQ4IDMzLjMyNSA4MC40OTQgMCAzMS4zNDctMTEuMTA4IDU4LjE1NC0zMy4zMjUgODAuNDItMjIuMjE3IDIyLjI2NS00OS4wNDggMzMuMzk4LTgwLjQ5MyAzMy4zOTgtMzEuMzQ4IDAtNTguMTU0LTExLjEzMy04MC40Mi0zMy4zOTlDMTEuMzE0IDE3Mi43NTYuMTgyIDE0NS45NS4xODIgMTE0LjYwMWgyMS42OGMwIDI1LjI5NCA5LjAzMiA0Ni45NzMgMjcuMDk5IDY1LjA0IDE4LjA2NiAxOC4wNjYgMzkuNzQ2IDI3LjEgNjUuMDM5IDI3LjEgMjUuMzkgMCA0Ny4wOTUtOS4wMzQgNjUuMTEyLTI3LjEgMTguMDE4LTE4LjA2NyAyNy4wMjctMzkuNzQ2IDI3LjAyNy02NS4wNCAwLTI1LjM5LTkuMDA5LTQ3LjA5NC0yNy4wMjctNjUuMTEyQzE2MS4wOTUgMzEuNDcyIDEzOS4zOTEgMjIuNDYzIDExNCAyMi40NjNWLjc4M3oiIGZpbGw9IiNhYWEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==);
+      background-image: url(data:image/svg+xml;charset=UTF-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMzhweCIgaGVpZ2h0PSIzOHB4IiB2aWV3Qm94PSIwIDAgMzggMzgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ4LjIgKDQ3MzI3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT51bnN1cHBvcnRlZDwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGQ9Ik0xOC42NjI5NTA5LDM3LjMyMjMzMDUgQzguNDQ1NjgzMDMsMzcuMzIyMzMwNSAwLjE2Mjk1MDkwNCwyOS4wMzk1OTgzIDAuMTYyOTUwOTA0LDE4LjgyMjMzMDUgQzAuMTYyOTUwOTA0LDguNjA1MDYyNiA4LjQ0NTY4MzAzLDAuMzIyMzMwNDcgMTguNjYyOTUwOSwwLjMyMjMzMDQ3IEMyOC44ODAyMTg4LDAuMzIyMzMwNDcgMzcuMTYyOTUwOSw4LjYwNTA2MjYgMzcuMTYyOTUwOSwxOC44MjIzMzA1IEMzNy4xNjI5NTA5LDI5LjAzOTU5ODMgMjguODgwMjE4OCwzNy4zMjIzMzA1IDE4LjY2Mjk1MDksMzcuMzIyMzMwNSBaIE0zMS4xNzk5OTI3LDE2LjgwOTk5NzYgQzMxLjE3OTk5MjcsMTYuNTMzODU1MiAzMC45NTYxMzUxLDE2LjMwOTk5NzYgMzAuNjc5OTkyNywxNi4zMDk5OTc2IEw2LjY3OTk5MjY4LDE2LjMwOTk5NzYgQzYuNDAzODUwMywxNi4zMDk5OTc2IDYuMTc5OTkyNjgsMTYuNTMzODU1MiA2LjE3OTk5MjY4LDE2LjgwOTk5NzYgTDYuMTc5OTkyNjgsMjAuODA5OTk3NiBDNi4xNzk5OTI2OCwyMS4wODYxMzk5IDYuNDAzODUwMywyMS4zMDk5OTc2IDYuNjc5OTkyNjgsMjEuMzA5OTk3NiBMMzAuNjc5OTkyNywyMS4zMDk5OTc2IEMzMC45NTYxMzUxLDIxLjMwOTk5NzYgMzEuMTc5OTkyNywyMS4wODYxMzk5IDMxLjE3OTk5MjcsMjAuODA5OTk3NiBMMzEuMTc5OTkyNywxNi44MDk5OTc2IFoiIGlkPSJ1bnN1cHBvcnRlZCIgZmlsbD0iI0Y1QzgyMyI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=);
+    }
+
+    .unsupported b {
+      background-image: url(data:image/svg+xml;charset=UTF-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMzhweCIgaGVpZ2h0PSIzOHB4IiB2aWV3Qm94PSIwIDAgMzggMzgiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDQ4LjIgKDQ3MzI3KSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5jbG9zZTwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgICAgIDxwYXRoIGQ9Ik0xOC42NjI5NTA5LDM3LjMyMjMzMDUgQzguNDQ1NjgzMDMsMzcuMzIyMzMwNSAwLjE2Mjk1MDkwNCwyOS4wMzk1OTgzIDAuMTYyOTUwOTA0LDE4LjgyMjMzMDUgQzAuMTYyOTUwOTA0LDguNjA1MDYyNiA4LjQ0NTY4MzAzLDAuMzIyMzMwNDcgMTguNjYyOTUwOSwwLjMyMjMzMDQ3IEMyOC44ODAyMTg4LDAuMzIyMzMwNDcgMzcuMTYyOTUwOSw4LjYwNTA2MjYgMzcuMTYyOTUwOSwxOC44MjIzMzA1IEMzNy4xNjI5NTA5LDI5LjAzOTU5ODMgMjguODgwMjE4OCwzNy4zMjIzMzA1IDE4LjY2Mjk1MDksMzcuMzIyMzMwNSBaIE0yMi4zODk2NDM2LDE4Ljk4NzAxMjYgQzIyLjI5MjAxMjUsMTguODg5MzgxNSAyMi4yOTIwMTI1LDE4LjczMTA5MDMgMjIuMzg5NjQzNiwxOC42MzM0NTkyIEwyOS4yODYxMjA2LDExLjczNjk4MjEgQzI5LjQ4MTM4MjgsMTEuNTQxNzIgMjkuNDgxMzgyOCwxMS4yMjUxMzc1IDI5LjI4NjEyMDYsMTEuMDI5ODc1NCBMMjYuNDU3NjkzNSw4LjIwMTQ0ODI0IEMyNi4yNjI0MzE0LDguMDA2MTg2MSAyNS45NDU4NDg5LDguMDA2MTg2MSAyNS43NTA1ODY3LDguMjAxNDQ4MjQgTDE4Ljg1NDEwOTcsMTUuMDk3OTI1MyBDMTguNzU2NDc4NiwxNS4xOTU1NTYzIDE4LjU5ODE4NzQsMTUuMTk1NTU2MyAxOC41MDA1NTYzLDE1LjA5NzkyNTMgTDExLjYwNTEyMTQsOC4yMDI0OTA0MSBDMTEuNDA5ODU5Myw4LjAwNzIyODI2IDExLjA5MzI3NjgsOC4wMDcyMjgyNiAxMC44OTgwMTQ3LDguMjAyNDkwNDEgTDguMDY5NTg3NTMsMTEuMDMwOTE3NSBDNy44NzQzMjUzOSwxMS4yMjYxNzk3IDcuODc0MzI1MzksMTEuNTQyNzYyMiA4LjA2OTU4NzUzLDExLjczODAyNDMgTDE0Ljk2NTAyMjQsMTguNjMzNDU5MiBDMTUuMDYyNjUzNSwxOC43MzEwOTAzIDE1LjA2MjY1MzUsMTguODg5MzgxNSAxNC45NjUwMjI0LDE4Ljk4NzAxMjYgTDguMDcyOTE3MiwyNS44NzkxMTc4IEM3Ljg3NzY1NTA1LDI2LjA3NDM3OTkgNy44Nzc2NTUwNSwyNi4zOTA5NjI0IDguMDcyOTE3MiwyNi41ODYyMjQ2IEwxMC45MDEzNDQzLDI5LjQxNDY1MTcgQzExLjA5NjYwNjUsMjkuNjA5OTEzOCAxMS40MTMxODksMjkuNjA5OTEzOCAxMS42MDg0NTExLDI5LjQxNDY1MTcgTDE4LjUwMDU1NjMsMjIuNTIyNTQ2NSBDMTguNTk4MTg3NCwyMi40MjQ5MTU0IDE4Ljc1NjQ3ODYsMjIuNDI0OTE1NCAxOC44NTQxMDk3LDIyLjUyMjU0NjUgTDI1Ljc0NzI1NzEsMjkuNDE1NjkzOCBDMjUuOTQyNTE5MiwyOS42MTA5NTYgMjYuMjU5MTAxNywyOS42MTA5NTYgMjYuNDU0MzYzOCwyOS40MTU2OTM4IEwyOS4yODI3OTEsMjYuNTg3MjY2NyBDMjkuNDc4MDUzMSwyNi4zOTIwMDQ2IDI5LjQ3ODA1MzEsMjYuMDc1NDIyMSAyOS4yODI3OTEsMjUuODgwMTU5OSBMMjIuMzg5NjQzNiwxOC45ODcwMTI2IFoiIGlkPSJjbG9zZSIgZmlsbD0iI0QwMDIxQiI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=);
+      cursor: default;
+    }
+
+    .unsupported b:hover {
+      transform: scale(1);
     }
 
     #man.unsupported div { display: none; }
@@ -119,13 +120,13 @@
   <p>A JavaScript module that normalize browsers’ various fullscreen APIs.</p>
 
   <div class="request">
-    <b title="Enter full-screen">↗</b>
+    <b title="Enter fullscreen">↗</b>
   </div>
   <div class="exit">
-    <b title="Exit full-screen">⎋</b>
+    <b title="Exit fullscreen">⎋</b>
   </div>
   <div class="no-screen">
-    <p>🚫 Sorry, your browser doesn't support full-screen.</p>
+    <b title="Fullscreen unsupported"></b>
   </div>
 
   <pre><span class="kr">const</span> <span class="nx">screen</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">FullScreen</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
@@ -166,7 +167,7 @@ document.addEventListener('DOMContentLoaded', function(event) {
     });
 
   } else {
-    document.querySelector('#doc').classList.add('unsupported');
+    document.querySelector('#man').classList.add('unsupported');
   }
 
   window.Man({pre: true});
