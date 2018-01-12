@@ -32,8 +32,7 @@
 
   if (typeof document.cancelFullScreen !== 'undefined') { // check for native support
     _bridge.supported = true;
-  }
-  else {
+  } else {
     for (i = 0; i < extensions.length; i++ ) { // check for fullscreen support by vendor prefix
       prefix = extensions[i];
       if (typeof document[prefix + 'CancelFullScreen' ] !== 'undefined') {
