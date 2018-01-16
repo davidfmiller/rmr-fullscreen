@@ -17,6 +17,7 @@
   prefix;
 
   const
+  RMR = require('rmr-util'),
   CLASSNAME = 'rmr-screen',
   extensions = ['webkit','moz','o','ms','khtml'],
   _bridge = {
@@ -84,11 +85,27 @@
     * @param {String} node - the node that will be full-screened
     * @return {Object} instance
     */
-  const FullScreen = function(node) {
-    this.node = typeof node === 'string' ? document.querySelector(node) : node;
+  const FullScreen = function(config) {
+
+    const type = typeof config;
+
+    switch (type) {
+      case 'string':
+        this.node =  document.querySelector(config);
+        break;
+      case 'object':
+        this.node =  RMR.Node.get(config.node);
+        break;
+
+    // old-school
+      default:
+        this.node = config;
+    }
+
+//    this.node = typeof node === 'string' ? document.querySelector(node) : node;
 
     if (! (this.node instanceof HTMLElement)) {
-      throw Error('Invalid FullScreen node <' + node + '>');
+      throw Error('Invalid FullScreen node <' + this.node + '>');
     }
 
     this.events = {

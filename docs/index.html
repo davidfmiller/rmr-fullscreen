@@ -156,7 +156,7 @@
 <script>
 document.addEventListener('DOMContentLoaded', function(event) {
 
-  var screen = new FullScreen(document.body);
+  var screen = new FullScreen({node : 'body'});
   if (screen.isSupported()) {
 
     screen.on('fullscreen', function(e) { window.console.log('fullscreen!!'); })
