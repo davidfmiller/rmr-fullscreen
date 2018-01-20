@@ -1,6 +1,20 @@
 {
   "name": "fullscreen",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "description" : "",
+  "url" : "https://davidfmiller.github.io/fullscreen/",
+  "license": "ISC",
+  "author": {
+    "name": "davidfmiller",
+    "url": "https://readmeansrun.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/davidfmiller/fullscreen.git"
+  },
+  "bugs": {
+    "url": "https://github.com/davidfmiller/fullscreen/issues"
+  },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

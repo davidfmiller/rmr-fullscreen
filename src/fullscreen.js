@@ -10,8 +10,6 @@
 (function() {
   'use strict';
 
-//  if (window.FullScreen) { return; }
-
   let
   i,
   prefix;
