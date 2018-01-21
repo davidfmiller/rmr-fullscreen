@@ -1,7 +1,7 @@
 
 const
     path = require('path');
-//    webpack = require('webpack');
+    webpack = require('webpack');
 
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // const extractCSS = new ExtractTextPlugin('[name].bundle.css');
