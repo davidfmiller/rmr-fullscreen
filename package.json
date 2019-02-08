@@ -1,8 +1,8 @@
 {
   "name": "fullscreen",
   "version": "0.0.3",
-  "description" : "",
-  "url" : "https://davidfmiller.github.io/fullscreen/",
+  "description": "",
+  "url": "https://davidfmiller.github.io/fullscreen/",
   "license": "ISC",
   "author": {
     "name": "davidfmiller",
@@ -19,7 +19,7 @@
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
-    "grunt": "~0.4.5",
+    "grunt": "^1.0.3",
     "grunt-contrib-compass": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
