@@ -2,7 +2,7 @@
   "name": "rmr-fullscreen",
   "version": "0.1.0",
   "description": "",
-  "url": "https://davidfmiller.github.io/fullscreen/",
+  "url": "https://davidfmiller.github.io/rmr-fullscreen/",
   "license": "ISC",
   "author": {
     "name": "davidfmiller",
@@ -10,10 +10,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/davidfmiller/fullscreen.git"
+    "url": "https://github.com/davidfmiller/rmr-fullscreen.git"
   },
   "bugs": {
-    "url": "https://github.com/davidfmiller/fullscreen/issues"
+    "url": "https://github.com/davidfmiller/rmr-fullscreen/issues"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
