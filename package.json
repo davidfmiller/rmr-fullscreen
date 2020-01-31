@@ -24,9 +24,9 @@
     "grunt-contrib-jshint": "*",
     "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "*",
-    "webpack": "^3.10.0"
+    "webpack": "^4.41.5"
   },
   "dependencies": {
-    "rmr-util": "^1.1.31"
+    "rmr-util": "^1.1.62"
   }
 }
