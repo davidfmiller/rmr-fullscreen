@@ -27,6 +27,6 @@
     "webpack": "^4.41.5"
   },
   "dependencies": {
-    "rmr-util": "^1.1.62"
+    "rmr-util": "^1.1.75"
   }
 }
