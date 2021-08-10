@@ -11,5 +11,5 @@
 
   'use strict';
 
-  module.exports = require('./src/fullscreen.js');
+  module.exports = require('./src/rmr-fullscreen.js');
 })();
