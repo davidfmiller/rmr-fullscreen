@@ -1,6 +1,6 @@
 {
   "name": "rmr-fullscreen",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "",
   "url": "https://davidfmiller.github.io/rmr-fullscreen/",
   "license": "ISC",
@@ -16,15 +16,10 @@
     "url": "https://github.com/davidfmiller/rmr-fullscreen/issues"
   },
   "devDependencies": {
-    "babel-core": "^6.26.0",
+    "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
     "babel-preset-es2015": "^6.24.1",
-    "grunt": "^1.1.0",
-    "grunt-contrib-compass": "*",
-    "grunt-contrib-jshint": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-contrib-watch": "*",
-    "webpack": "^5.92.0"
+    "webpack": "^5.97.1"
   },
   "dependencies": {
     "rmr-util": "^1.1.86"
